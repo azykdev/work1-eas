@@ -22,8 +22,9 @@ const submitDepartamentForm = async () => {
   if (result) {
     store.dispatch('postDepartament', departament.value).then((res) => {
       emit('closePopup')
+    }).finally(() => {
+      store.dispatch('getDepartament', { page: 1, itemsPerPage: 10})
     })
-    store.dispatch('getDepartament', { page: 1, itemsPerPage: 10})
   } else {
     alert('Validation failed!')
   }

@@ -1,8 +1,7 @@
 <script setup>
 import CreateDepartamentPopUp from '@/components/dialogs/CreateDepartamentPopUp.vue';
 import DepartamentsTable from '@/components/tables/DepartamentsTable.vue';
-import axios from 'axios';
-import { ref, onMounted } from 'vue';
+import { ref } from 'vue';
 
 let loaded = ref(false)
 let loading = ref(false)
@@ -15,14 +14,6 @@ const onClick = () => {
     loaded.value = true
   }, 2000)
 };
-
-onMounted(() => {
-  axios.get("http://localhost:3000/employees").then((res) => {
-    console.log(res);
-  }).catch((err) => {
-    console.log("Error -> ", err);
-  })
-})
 
 </script>
 

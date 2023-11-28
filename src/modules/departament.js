@@ -10,13 +10,13 @@ const state = {
   departamentPopupOpen: false
 }
 const mutations = {
-  getDepartamentStart(state) {
+  departamentStart(state) {
     state.loading = true
   },
-  getDepartamentSuccess(state) {
+  departamentSuccess(state) {
     state.loading = false
   },
-  getDepartamentError(state) {
+  departamentError(state) {
     state.loading = false
   },
   openPopupStart(state) {
@@ -31,7 +31,7 @@ const actions = {
   getDepartament(context, payload) {
     return new Promise((resolve, reject) => {
 
-      context.commit("getDepartamentStart")
+      context.commit("departamentStart")
 
       DepartamentService.getDepartament(payload).then(res => {
 
@@ -40,11 +40,11 @@ const actions = {
         state.serverItems = [...res.data]
         state.totalItems = res.headers["x-total-count"]
 
-        context.commit("getDepartamentSuccess")
+        context.commit("departamentSuccess")
 
         resolve(res)
       }).catch(err => {
-        context.commit("getDepartamentError")
+        context.commit("departamentError")
 
         reject(err)
       })
@@ -53,9 +53,14 @@ const actions = {
   // Post departament
   postDepartament(context, departament) {
     return new Promise((resolve, reject) => {
+
+      context.commit("departamentStart") 
+
       DepartamentService.postDepartament(departament).then(res => {
+        context.commit("departamentSuccess")
         resolve(res)
         }).catch(err => {
+        context.commit("departamentError")
         reject(err)
       })
     })
