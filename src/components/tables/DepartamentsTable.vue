@@ -42,7 +42,7 @@ export default {
     itemsPerPage: 10,
     headers: [
       { key: 'id', title: '№', align: 'start', sortable: false },
-      { key: 'depName', title: 'Bo\'lim nomi', align: 'center' },
+      { key: 'bulim_name', title: 'Bo\'lim nomi', align: 'center' },
       { key: 'actions', title: '', align: 'center', sortable: false },
     ],
   }),

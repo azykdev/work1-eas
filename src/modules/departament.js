@@ -34,6 +34,9 @@ const actions = {
       context.commit("getDepartamentStart")
 
       DepartamentService.getDepartament(payload).then(res => {
+
+        console.log(res);
+
         state.serverItems = [...res.data]
         state.totalItems = res.headers["x-total-count"]
 

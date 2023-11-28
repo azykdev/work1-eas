@@ -3,7 +3,7 @@ import axios from "./axios";
 const DepartamentService = {
   // GET
   getDepartament(payload) {
-    return axios.get("/departaments", {
+    return axios.get("/bulimlar", {
       params: {
         _limit: payload.itemsPerPage,
         _page: payload.page
@@ -12,7 +12,7 @@ const DepartamentService = {
   },
   // POST
   postDepartament(data) {
-    return axios.post("/departaments", data)
+    return axios.post("/bulimlar", data)
   },
   // DELETE
   deleteDepartament(id) {

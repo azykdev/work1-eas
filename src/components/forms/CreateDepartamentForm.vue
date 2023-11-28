@@ -1,8 +1,8 @@
 <script setup>
-import useVuelidate from '@vuelidate/core'
-import { required } from '@vuelidate/validators'
-import { computed, ref, watch } from 'vue'
-import { useStore } from 'vuex'
+import useVuelidate from '@vuelidate/core';
+import { required } from '@vuelidate/validators';
+import { computed, ref, watch } from 'vue';
+import { useStore } from 'vuex';
 
 // getting store
 const store = useStore()
@@ -11,8 +11,7 @@ const emit = defineEmits(['closePopup'])
 
 // DATA -------------------------------------------------
 const departament = ref({
-  id: Date.now(),
-  depName: '',
+  bulim_name: '',
 })
 
 // METHODS ---------------------------------------------------
@@ -26,7 +25,7 @@ const submitDepartamentForm = async () => {
     })
     store.dispatch('getDepartament', { page: 1, itemsPerPage: 10})
   } else {
-    alert('Validat ion failed!')
+    alert('Validation failed!')
   }
 }
 
@@ -36,7 +35,7 @@ const editItemDatas = computed(() => {
 })
 const rules = computed(() => {
   return {
-    depName: { required },
+    bulim_name: { required },
   }
 })
 const v$ = useVuelidate(rules, departament)
@@ -57,8 +56,8 @@ watch(() => {
       density="comfortable"
       clearable
       prepend-inner-icon="mdi-sitemap"
-      v-model="departament.depName"
-      :error-messages="v$.depName.$errors.map(e => e.$message)"
+      v-model="departament.bulim_name"
+      :error-messages="v$.bulim_name.$errors.map(e => e.$message)"
     />
 
     <VBtn

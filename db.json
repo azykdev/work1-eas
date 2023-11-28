@@ -214,39 +214,39 @@
   "departaments": [
     {
       "id": 1,
-      "depName": "Bolim 1"
+      "bulim_name": "Bolim 1"
     },
     {
       "id": 2,
-      "depName": "Bolim 2"
+      "bulim_name": "Bolim 2"
     },
     {
       "id": 3,
-      "depName": "Bolim 3"
+      "bulim_name": "Bolim 3"
     },
     {
       "id": 4,
-      "depName": "Bolim 4"
+      "bulim_name": "Bolim 4"
     },
     {
       "id": 1,
-      "depName": "Bolim 1"
+      "bulim_name": "Bolim 1"
     },
     {
       "id": 2,
-      "depName": "Bolim 2"
+      "bulim_name": "Bolim 2"
     },
     {
       "id": 3,
-      "depName": "Bolim 3"
+      "bulim_name": "Bolim 3"
     },
     {
       "id": 4,
-      "depName": "Bolim 4"
+      "bulim_name": "Bolim 4"
     },
     {
       "id": 1699250317494,
-      "depName": "My departament"
+      "bulim_name": "My departament"
     }
   ]
 }
