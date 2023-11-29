@@ -50,6 +50,7 @@ const actions = {
       })
     })
   },
+  
   // Post departament
   postDepartament(context, departament) {
     return new Promise((resolve, reject) => {
@@ -65,6 +66,7 @@ const actions = {
       })
     })
   },
+
   // delete departament
   deleteDepartament(context, id) {
     return new Promise((resolve, reject) => {
@@ -75,6 +77,7 @@ const actions = {
       })
     })
   },
+
   // Edit departament
   getDepEditData(context, id) {
     return new Promise((resolve, reject) => {

@@ -5,7 +5,7 @@
     :items-length="$store.state.employee.totalItems"
     :items="$store.state.employee.serverItems"
     :loading="$store.state.employee.loading"
-    class="elevation-1"
+    class="elevation-1 pb-2"
     @update:options="loadItems"
   >
     <!-- full name -->

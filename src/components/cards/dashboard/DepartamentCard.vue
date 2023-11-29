@@ -16,7 +16,7 @@ const triangleBg = computed(() => global.name.value === 'light' ?  triangleLight
   >
     <VCardText>
       <h5 class="text-2xl font-weight-medium text-primary">
-        15
+        
       </h5>
       <p class="d-flex">
         <span class="text-caption text-success d-flex align-center me-3">

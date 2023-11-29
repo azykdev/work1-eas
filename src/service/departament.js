@@ -15,9 +15,9 @@ const DepartamentService = {
     return axios.post("/bulimlar", data)
   },
   // DELETE
-  // deleteDepartament(id) {
-  //   return axios.delete(`/departaments/${id}`)
-  // },
+  deleteDepartament(id) {
+    return axios.delete(`/bulimlar/${id}`)
+  },
   // EDIT
   // getDepEditData(id) {
   //   return axios.get(`/departaments/${id}`)

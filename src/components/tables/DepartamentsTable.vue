@@ -5,7 +5,7 @@
     :items-length="$store.state.departament.totalItems"
     :items="$store.state.departament.serverItems"
     :loading="$store.state.departament.loading"
-    class="elevation-1"
+    class="elevation-1 pb-2"
     @update:options="loadItems"
   >
     <template v-slot:item.actions="{ item }">
