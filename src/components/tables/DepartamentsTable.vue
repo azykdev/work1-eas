@@ -42,7 +42,7 @@ export default {
     itemsPerPage: 10,
     headers: [
       { key: 'id', title: '№', align: 'start', sortable: false },
-      { key: 'bulim_name', title: 'Bo\'lim nomi', align: 'center' },
+      { key: 'bulim_name', title: 'Bo\'lim nomi' },
       { key: 'actions', title: '', align: 'center', sortable: false },
     ],
   }),
@@ -51,8 +51,10 @@ export default {
       this.$store.dispatch('getDepartament', { page, itemsPerPage })
     },
     deleteItem(item) {
-      this.$store.dispatch('deleteDepartament', item.value)
-      this.$store.dispatch('getDepartament', { page: 1, itemsPerPage: 10 })
+      this.$store.dispatch('deleteDepartament', item.value).then(() => {
+        this.$store.dispatch('getDepartament', { page: 1, itemsPerPage: 10 })
+      })
+      
     },
     editItem(item) {
       this.$store.dispatch('getDepEditData', item.value)

@@ -6,6 +6,7 @@ const state = {
   loading: false,
 // Edit Data
   editItemData: null,
+
 // Popup
   departamentPopupOpen: false
 }
@@ -24,6 +25,7 @@ const mutations = {
   },
   openPopupEnd(state) {
     state.departamentPopupOpen = false
+    // state.editItemData = null
   }
 }
 const actions = {
@@ -31,7 +33,7 @@ const actions = {
   getDepartament(context, payload) {
     return new Promise((resolve, reject) => {
 
-      context.commit("departamentStart")
+      context.commit("departamentStart") 
 
       DepartamentService.getDepartament(payload).then(res => {
 
@@ -40,28 +42,28 @@ const actions = {
         state.serverItems = [...res.data]
         state.totalItems = res.headers["x-total-count"]
 
-        context.commit("departamentSuccess")
+        context.commit("departamentSuccess") 
 
         resolve(res)
       }).catch(err => {
-        context.commit("departamentError")
+        context.commit("departamentError") 
 
         reject(err)
       })
     })
   },
-  
+
   // Post departament
   postDepartament(context, departament) {
     return new Promise((resolve, reject) => {
 
-      context.commit("departamentStart") 
+      context.commit("departamentStart")  
 
       DepartamentService.postDepartament(departament).then(res => {
-        context.commit("departamentSuccess")
+        context.commit("departamentSuccess")  
         resolve(res)
         }).catch(err => {
-        context.commit("departamentError")
+        context.commit("departamentError")  
         reject(err)
       })
     })
@@ -70,9 +72,18 @@ const actions = {
   // delete departament
   deleteDepartament(context, id) {
     return new Promise((resolve, reject) => {
+
+      context.commit("departamentStart") 
+
       DepartamentService.deleteDepartament(id).then(res => {
+
+        context.commit("departamentSuccess") 
+
         resolve(res)
       }).catch(err => {
+
+        context.commit("departamentError") 
+
         reject(err)
       })
     })
@@ -82,7 +93,7 @@ const actions = {
   getDepEditData(context, id) {
     return new Promise((resolve, reject) => {
       DepartamentService.getDepEditData(id).then(res => {
-        console.log(res);
+        console.log(res); 
         state.editItemData = res.data
         context.commit("openPopupStart")
         resolve(res)
