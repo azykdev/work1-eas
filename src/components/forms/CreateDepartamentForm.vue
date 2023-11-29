@@ -6,8 +6,6 @@ import { useStore } from 'vuex';
 
 // getting store
 const store = useStore()
-// emits
-const emit = defineEmits(['closePopup'])
 
 // DATA -------------------------------------------------
 const departament = ref({
@@ -21,7 +19,9 @@ const submitDepartamentForm = async () => {
 
   if (result) {
     store.dispatch('postDepartament', departament.value).then((res) => {
-      emit('closePopup')
+
+      store.commit("closePopup")
+
     }).finally(() => {
       store.dispatch('getDepartament', { page: 1, itemsPerPage: 10})
     })

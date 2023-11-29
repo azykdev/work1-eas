@@ -6,10 +6,10 @@ const state = {
   loading: false,
 // Edit Data
   editItemData: null,
-
 // Popup
-  departamentPopupOpen: false
+  popup: false
 }
+
 const mutations = {
   departamentStart(state) {
     state.loading = true
@@ -20,14 +20,24 @@ const mutations = {
   departamentError(state) {
     state.loading = false
   },
-  openPopupStart(state) {
-    state.departamentPopupOpen = true
+
+  // Edit data
+  // FIXME CreateDepartamentPopup componentda bo'lim qo'shish tugmasi bosilganda ushbu funksiyani ishlatish mukin !
+  // clearEditData(state) {
+  //   state.editItemData = null
+  // },
+
+  // Popup methods
+  openPopup(state) {
+    state.popup = true
   },
-  openPopupEnd(state) {
-    state.departamentPopupOpen = false
-    // state.editItemData = null
+  closePopup(state) {
+    state.popup = false
+    state.editItemData = null
   }
+
 }
+
 const actions = {
   // Get departament
   getDepartament(context, payload) {
@@ -94,8 +104,10 @@ const actions = {
     return new Promise((resolve, reject) => {
       DepartamentService.getDepEditData(id).then(res => {
         console.log(res); 
+
         state.editItemData = res.data
-        context.commit("openPopupStart")
+        context.commit("openPopup")
+
         resolve(res)
       }).catch(err => {
         reject(err)
