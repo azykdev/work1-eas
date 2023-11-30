@@ -18,10 +18,14 @@ const DepartamentService = {
   deleteDepartament(id) {
     return axios.delete(`/bulimlar/${id}`)
   },
-  // EDIT
+  // PUT
   getDepEditData(id) {
     return axios.get(`/bulim/${id}`)
+  },
+  putDepartament(id, data) {
+    return axios.put(`/bulimlar/${id}`, data) 
   }
+
 }
 
 export default DepartamentService

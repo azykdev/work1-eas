@@ -39,7 +39,7 @@ const mutations = {
 }
 
 const actions = {
-  // Get departament
+  // GET departament
   getDepartament(context, payload) {
     return new Promise((resolve, reject) => {
 
@@ -47,7 +47,7 @@ const actions = {
 
       DepartamentService.getDepartament(payload).then(res => {
 
-        console.log(res);
+        // console.log(res);
 
         state.serverItems = [...res.data]
         state.totalItems = res.headers["x-total-count"]
@@ -63,7 +63,7 @@ const actions = {
     })
   },
 
-  // Post departament
+  // POST departament
   postDepartament(context, departament) {
     return new Promise((resolve, reject) => {
 
@@ -79,7 +79,7 @@ const actions = {
     })
   },
 
-  // delete departament
+  // DELETE departament
   deleteDepartament(context, id) {
     return new Promise((resolve, reject) => {
 
@@ -99,11 +99,10 @@ const actions = {
     })
   },
 
-  // Edit departament
+  // PUT departament
   getDepEditData(context, id) {
     return new Promise((resolve, reject) => {
       DepartamentService.getDepEditData(id).then(res => {
-        console.log(res); 
 
         state.editItemData = res.data
         context.commit("openPopup")
@@ -113,8 +112,20 @@ const actions = {
         reject(err)
       })
     })
+  },
+
+  putDepartament(context, data) {
+    return new Promise((resolve, reject) => {
+      DepartamentService.putDepartament(data.id, data).then(res => {
+        console.log(res);
+        resolve(res)
+      }).catch(err => {
+        reject(err)
+      })
+    })
   }
 }
+
 const getters = {
 
 }
