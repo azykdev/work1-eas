@@ -13,7 +13,7 @@
         size="small"
         class="me-2"
         @click="editItem(item)"
-        color="warning"
+        color="grey-500"
       >
         mdi-pencil
       </v-icon>
@@ -41,7 +41,7 @@ export default {
   data: () => ({
     itemsPerPage: 10,
     headers: [
-      { key: 'id', title: '№', align: 'start', sortable: false },
+      { key: 'num', title: '№', align: 'start', sortable: false },
       { key: 'bulim_name', title: 'Bo\'lim nomi' },
       { key: 'actions', title: '', align: 'center', sortable: false },
     ],

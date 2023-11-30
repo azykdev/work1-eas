@@ -47,9 +47,15 @@ const actions = {
 
       DepartamentService.getDepartament(payload).then(res => {
 
-        // console.log(res);
+        state.serverItems = []
+        
+        res.data.forEach((item, i) => {
+          item.num = i + 1
+          
+          state.serverItems.push(item)
+        });
 
-        state.serverItems = [...res.data]
+        // state.serverItems = [...res.data]
         state.totalItems = res.headers["x-total-count"]
 
         context.commit("departamentSuccess") 
