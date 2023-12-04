@@ -10,6 +10,7 @@ const state = {
 }
 
 const mutations = {
+  // GET employee
   getEmployeeStart(state) {
     state.loading = true
   },
@@ -19,6 +20,19 @@ const mutations = {
   getEmployeeError(state) {
     state.loading = false
   },
+
+  // POST employee
+  postEmployeeStart(state) {
+    state.loading = true
+  },
+  postEmployeeSuccess(state) {
+    state.loading = false
+  },
+  postEmployeeError(state) {
+    state.loading = false
+  },
+  
+  // DELETE employee
 
   employeePopupOpen(state) {
     state.popup = true
@@ -80,16 +94,27 @@ const actions = {
       })
     })
   },
+
   // Post employee
   postEmployee(context, employee) {
     return new Promise((resolve, reject) => {
+
+      context.commit("postEmployeeStart")
+
       EmployeeService.postEmployee(employee).then(res => {
+
+        context.commit("postEmployeeSuccess")
+
         resolve(res)
         }).catch(err => {
+
+        context.commit("postEmployeeError") // TODO bu yerda ikkinchi parametrga error data beriladi
+
         reject(err)
       })
     })
   },
+
   // Delete employee
   deleteEmployee(context, id) {
     return new Promise((resolve, reject) => {

@@ -12,7 +12,7 @@ const EmployeeService = {
   },
   // POST
   postEmployee(data) {
-    return axios.post("/employees", data)
+    return axios.post("/xodim/xodimlar", data)
   },
   // DELETE
   deleteEmployee(id) {

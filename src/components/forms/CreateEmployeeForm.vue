@@ -13,18 +13,17 @@ const store = useStore()
 // DATA ------------------------------------------------- 
 const refImgInput = ref()
 const employee = ref({
-  id: Date.now(),
   image: 'https://cdn-icons-png.flaticon.com/512/3177/3177440.png',
-  fName: '',
-  lName: '',
-  oName: '',
-  jshir: '',
-  seria: '',
-  seriaRaqam: '',
-  birthday: '',
-  phone: '',
+  ism: '', //+
+  familiya: '', //+
+  sharif: '', //+
+  jshir: '', //+
+  ps_seriya: '', //+
+  ps_raqam: '', //+
+  tug_sana: '', //+
+  telefon: '', //+
   gender: null,
-  isActive: false,
+  active: false, //+
 })
 // Maska
 const MaskOption = ref({
@@ -61,34 +60,46 @@ const submitEmployeeForm = async () => {
   const result = await v$.value.$validate()
 
   if (result) {
-    store.dispatch('postEmployee', employee.value).then(() => {
-    })
-
-    store.dispatch('getEmployee', { page: 1, itemsPerPage: 10})
+  
+    if (store.state.employee.editItemData) {
+      store.dispatch('putEmployee', employee.value).then(() => { // PUT
+        store.commit('employeePopupClose')
+      }).finally(() => {
+        store.dispatch('getEmployee', { page: 1, itemsPerPage: 10})
+      })
+    } else {
+      store.dispatch('postEmployee', employee.value).then(() => {  // POST
+        store.commit('employeePopupClose')
+      }).finally(() => {
+        store.dispatch('getEmployee', { page: 1, itemsPerPage: 10})
+      })
+    }
+    
   } else {
     alert('Validation failed!')
   }
-  
+
 }
 
 // COMPUTED --------------------------------------------------
 const editItemDatas = computed(() => {
   return store.state.employee.editItemData
 })
-// Rules
-const rules = computed(() => {
+
+const rules = computed(() => {   // Rules
   return {
-    fName: { required, minLength: minLength(3), maxLength: maxLength(20) },
-    lName: { required, minLength: minLength(3), maxLength: maxLength(20) },
-    oName: { required, minLength: minLength(3), maxLength: maxLength(20) },
+    ism: { required, minLength: minLength(3), maxLength: maxLength(20) },
+    familiya: { required, minLength: minLength(3), maxLength: maxLength(20) },
+    sharif: { required, minLength: minLength(3), maxLength: maxLength(20) },
     jshir: { required, maxLength: minLength(14) },
-    seria: { required, maxLength: minLength(2) },
-    seriaRaqam: { required, maxLength: minLength(7) },
-    birthday: { required },
-    phone: { required, minLength: minLength(19) },
+    ps_seriya: { required, maxLength: minLength(2) },
+    ps_raqam: { required, maxLength: minLength(7) },
+    tug_sana: { required },
+    telefon: { required, minLength: minLength(19) },
     gender: { required },
   }
 })
+
 const v$ = useVuelidate(rules, employee)
 
 // MOUNTED ------------------------------------------------
@@ -160,8 +171,8 @@ watch(() => {
           density="comfortable"
           clearable
           prepend-inner-icon="mdi-account"
-          v-model="employee.fName"
-          :error-messages="v$.fName.$errors.map(e => e.$message)"
+          v-model="employee.ism"
+          :error-messages="v$.ism.$errors.map(e => e.$message)"
         />
       </VCol>
 
@@ -173,8 +184,8 @@ watch(() => {
           density="comfortable"
           clearable
           prepend-inner-icon="mdi-account"
-          v-model="employee.lName"
-          :error-messages="v$.lName.$errors.map(e => e.$message)"
+          v-model="employee.familiya"
+          :error-messages="v$.familiya.$errors.map(e => e.$message)"
         />
       </VCol>
 
@@ -186,8 +197,8 @@ watch(() => {
           density="comfortable"
           clearable
           prepend-inner-icon="mdi-account"
-          v-model="employee.oName"
-          :error-messages="v$.oName.$errors.map(e => e.$message)"
+          v-model="employee.sharif"
+          :error-messages="v$.sharif.$errors.map(e => e.$message)"
         />
       </VCol>
 
@@ -222,8 +233,8 @@ watch(() => {
               clearable
               prepend-inner-icon="mdi-passport-biometric"
               placeholder="AA"
-              v-model="employee.seria"
-              :error-messages="v$.seria.$errors.map(e => e.$message)"
+              v-model="employee.ps_seriya"
+              :error-messages="v$.ps_seriya.$errors.map(e => e.$message)"
               v-maska:[MaskOption.seriaOption]
             />
           </VCol>
@@ -240,8 +251,8 @@ watch(() => {
               clearable
               prepend-inner-icon="mdi-passport-biometric"
               placeholder="1234567"
-              v-model="employee.seriaRaqam"
-              :error-messages="v$.seriaRaqam.$errors.map(e => e.$message)"
+              v-model="employee.ps_raqam"
+              :error-messages="v$.ps_raqam.$errors.map(e => e.$message)"
               v-maska:[MaskOption.seriaRaqamOption]
             />
           </VCol>
@@ -265,8 +276,8 @@ watch(() => {
               prepend-inner-icon="mdi-calendar"
               placeholder="Tug'ilgan sana"
               type="date"
-              v-model="employee.birthday"
-              :error-messages="v$.birthday.$errors.map(e => e.$message)"
+              v-model="employee.tug_sana"
+              :error-messages="v$.tug_sana.$errors.map(e => e.$message)"
             />
           </VCol>
 
@@ -282,8 +293,8 @@ watch(() => {
               clearable
               prepend-inner-icon="mdi-phone"
               placeholder="+998 ("
-              v-model="employee.phone"
-              :error-messages="v$.phone.$errors.map(e => e.$message)"
+              v-model="employee.telefon"
+              :error-messages="v$.telefon.$errors.map(e => e.$message)"
               v-maska:[MaskOption.phoneMaskOption]
             />
           </VCol>
