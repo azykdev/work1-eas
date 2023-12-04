@@ -33,7 +33,28 @@ const mutations = {
   },
   
   // DELETE employee
+  deleteEmployeeStart(state) {
+    state.loading = true
+  },
+  deleteEmployeeSuccess(state) {
+    state.loading = false
+  },
+  deleteEmployeeError(state) {
+    state.loading = false
+  },
 
+  // PUT employee
+  putEmployeeStart(state) {
+    state.loading = true
+  },
+  putEmployeeSuccess(state) {
+    state.loading = false
+  },
+  putEmployeeError(state) {
+    state.loading = false
+  },
+
+  // Popup mutaions
   employeePopupOpen(state) {
     state.popup = true
   },
@@ -117,13 +138,19 @@ const actions = {
 
   // Delete employee
   deleteEmployee(context, id) {
+
+    context.commit("deleteEmployeeStart")
+
     return new Promise((resolve, reject) => {
       EmployeeService.deleteEmployee(id).then(res => {
 
-        context.commit("employeePopupOpen")
+        context.commit("deleteEmployeeSuccess")    
 
         resolve(res)
       }).catch(err => {
+
+        context.commit("deleteEmployeeError")
+        
         reject(err)
       })
     })
@@ -133,7 +160,10 @@ const actions = {
     return new Promise((resolve, reject) => {
       EmployeeService.getEmpEditData(id).then(res => {
         console.log(res);
+
+        context.commit("employeePopupOpen")
         state.editItemData = res.data
+
         resolve(res)
       }).catch(err => {
         reject(err)

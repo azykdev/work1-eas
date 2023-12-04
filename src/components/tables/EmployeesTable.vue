@@ -85,8 +85,11 @@ export default {
       this.$store.dispatch('getEmployee', { page, itemsPerPage })
     },
     deleteItem(item) {
-      this.$store.dispatch('deleteEmployee', item.value)
-      this.$store.dispatch('getEmployee', { page: 1, itemsPerPage: 10 })
+      if(confirm("O'chirishni xohlaysizmi?")) {
+        this.$store.dispatch('deleteEmployee', item.value).then(() => {
+          this.$store.dispatch('getEmployee', { page: 1, itemsPerPage: 10 })
+        })
+      }
     },
     editItem(item) {
       this.$store.dispatch('getEmpEditData', item.value)

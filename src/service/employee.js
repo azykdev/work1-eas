@@ -16,7 +16,7 @@ const EmployeeService = {
   },
   // DELETE
   deleteEmployee(id) {
-    return axios.delete(`/employees/${id}`)
+    return axios.delete(`/xodim/xodimlar/${id}`)
   },
   // EDIT
   getEmpEditData(id) {
