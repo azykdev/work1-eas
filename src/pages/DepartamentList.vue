@@ -1,8 +1,8 @@
 <script setup>
-import CreateDepartamentPopUp from '@/components/dialogs/CreateDepartamentPopUp.vue';
-import DepartamentsTable from '@/components/tables/DepartamentsTable.vue';
-import axios from 'axios';
-import { ref, onMounted } from 'vue';
+import CreateDepartamentPopUp from '@/components/dialogs/CreateDepartamentPopUp.vue'
+import DepartamentsTable from '@/components/tables/DepartamentsTable.vue'
+import axios from 'axios'
+import { onMounted, ref } from 'vue'
 
 let loaded = ref(false)
 let loading = ref(false)
@@ -14,28 +14,34 @@ const onClick = () => {
     loading.value = false
     loaded.value = true
   }, 2000)
-};
+}
 
 // onMounted(() => {
-//   axios.get("http://localhost:3000/employees", {
-//       params: {
-//         _page: 1,
-//         _limit: 5
-//       }
-//     }).then((res) => {
-
-//     console.log(res);
-//   })
+//   axios
+//     .get('http://t1.zarmeduniver.com:8005/bulim/bulimlar')
+//     .then(res => {
+//       console.log(res)
+//     })
+//     .catch(err => {
+//       console.log('ERROR ----> ' + err)
+//     })
 // })
 
 </script>
 
 <template>
   <v-row class="my-2">
-    <v-col cols="12" sm="6" class="d-flex align-center">
+    <v-col
+      cols="12"
+      sm="6"
+      class="d-flex align-center"
+    >
       <CreateDepartamentPopUp />
     </v-col>
-    <v-col cols="12" sm="6">
+    <v-col
+      cols="12"
+      sm="6"
+    >
       <v-form class="d-flex align-center justify-space-between">
         <v-text-field
           append-inner-icon="mdi-magnify"

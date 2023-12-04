@@ -51,9 +51,11 @@ export default {
       this.$store.dispatch('getDepartament', { page, itemsPerPage })
     },
     deleteItem(item) {
-      this.$store.dispatch('deleteDepartament', item.value).then(() => {
-        this.$store.dispatch('getDepartament', { page: 1, itemsPerPage: 10 })
-      })
+      if(confirm("O'chirishni xohlaysizmi?")) {
+        this.$store.dispatch('deleteDepartament', item.value).then(() => {
+          this.$store.dispatch('getDepartament', { page: 1, itemsPerPage: 10 })
+        })
+      }
       
     },
     editItem(item) {

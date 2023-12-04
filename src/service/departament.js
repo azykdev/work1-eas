@@ -3,27 +3,30 @@ import axios from "./axios";
 const DepartamentService = {
   // GET
   getDepartament(payload) {
-    return axios.get("/bulimlar", {
+    return axios.get("/bulim/bulimlar", {
       params: {
-        _limit: payload.itemsPerPage,
-        _page: payload.page
+        skip: payload.page,
+        limit: payload.itemsPerPage,
       }
     })
   },
+
   // POST
   postDepartament(data) {
-    return axios.post("/bulimlar", data)
+    return axios.post("/bulim/bulimlar", data)
   },
+
   // DELETE
   deleteDepartament(id) {
-    return axios.delete(`/bulimlar/${id}`)
+    return axios.delete(`/bulim/bulimlar/${id}`)
   },
+
   // PUT
   getDepEditData(id) {
-    return axios.get(`/bulim/${id}`)
+    return axios.get(`/bulim/bulim/${id}`)
   },
   putDepartament(id, data) {
-    return axios.put(`/bulimlar/${id}`, data) 
+    return axios.put(`/bulim/bulimlar/${id}`, data) 
   }
 
 }
