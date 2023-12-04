@@ -74,7 +74,6 @@ const actions = {
 
       EmployeeService.getEmployee(payload).then(res => {
 
-        console.log(res);
 
         const newServerItems = [];
 
@@ -136,7 +135,7 @@ const actions = {
     })
   },
 
-  // Delete employee
+  // DELETE employee
   deleteEmployee(context, id) {
 
     context.commit("deleteEmployeeStart")
@@ -150,22 +149,42 @@ const actions = {
       }).catch(err => {
 
         context.commit("deleteEmployeeError")
-        
+
         reject(err)
       })
     })
   },
-  // Edit employee
+
+  // PUT employee
   getEmpEditData(context, id) {
     return new Promise((resolve, reject) => {
       EmployeeService.getEmpEditData(id).then(res => {
         console.log(res);
 
-        context.commit("employeePopupOpen")
         state.editItemData = res.data
+        context.commit("employeePopupOpen")
 
         resolve(res)
       }).catch(err => {
+        reject(err)
+      })
+    })
+  },
+
+  putEmployee(context, data) {
+    return new Promise((resolve, reject) => {
+
+      context.commit("putEmployeeStart")
+
+      EmployeeService.putEmployee(data.id, data).then(res => {
+
+        context.commit("putEmployeeSuccess")
+
+        resolve(res)
+      }).catch(err => {
+
+        context.commit("putEmployeeError")
+
         reject(err)
       })
     })

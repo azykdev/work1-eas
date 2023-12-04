@@ -20,7 +20,10 @@ const EmployeeService = {
   },
   // EDIT
   getEmpEditData(id) {
-    return axios.get(`/employees/${id}`)
+    return axios.get(`/xodim/xodim/${id}`)
+  },
+  putEmployee(id, data) {
+    return axios.put(`/xodim/xodimlar/${id}`, data) 
   }
 }
 
