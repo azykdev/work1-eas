@@ -1,11 +1,31 @@
 <script setup>
+import departamentImg from '@images/misc/departamentImg.png'
 import triangleDark from '@images/misc/triangle-dark.png'
 import triangleLight from '@images/misc/triangle-light.png'
-import departamentImg from '@images/misc/departamentImg.png'
+import { computed } from 'vue'
 import { useTheme } from 'vuetify'
+import { useStore } from 'vuex'
 
 const { global } = useTheme()
-const triangleBg = computed(() => global.name.value === 'light' ?  triangleLight : triangleDark)
+const triangleBg = computed(() => (global.name.value === 'light' ? triangleLight : triangleDark))
+
+const store = useStore()
+
+// Data
+const allDepartamentCount = ref(null)
+
+// Methods
+function getDepartamentData() {
+  store.dispatch("getDepartament", {page: 1, itemsPerPage: 10}).then(res => {
+    allDepartamentCount.value = res.headers['x-total-count']
+  })
+}
+
+// Mounted
+onMounted(() => {
+  getDepartamentData()
+})
+
 </script>
 
 <template>
@@ -16,7 +36,7 @@ const triangleBg = computed(() => global.name.value === 'light' ?  triangleLight
   >
     <VCardText>
       <h5 class="text-2xl font-weight-medium text-primary">
-        
+        {{ allDepartamentCount }}
       </h5>
       <p class="d-flex">
         <span class="text-caption text-success d-flex align-center me-3">
@@ -27,9 +47,12 @@ const triangleBg = computed(() => global.name.value === 'light' ?  triangleLight
           <span>-5</span>
           <v-icon icon="mdi-menu-down"></v-icon>
         </span>
-        
       </p>
-      <VBtn size="small" :to="{name: 'bolimlar_royxati'}" class="text-capitalize">
+      <VBtn
+        size="small"
+        :to="{ name: 'bolimlar_royxati' }"
+        class="text-capitalize"
+      >
         Bo'limlar
       </VBtn>
     </VCardText>
@@ -49,7 +72,7 @@ const triangleBg = computed(() => global.name.value === 'light' ?  triangleLight
 </template>
 
 <style lang="scss">
-@use "@layouts/styles/mixins" as layoutsMixins;
+@use '@layouts/styles/mixins' as layoutsMixins;
 
 .v-card .triangle-bg {
   position: absolute;
