@@ -20,28 +20,19 @@ const submitDepartamentForm = async () => {
   if (result) {
 
     if (store.state.departament.editItemData) {
-      store.dispatch('putDepartament', departament.value).then(() => {
+      store.dispatch('putDepartament', departament.value).then(() => { // PUT
         store.commit('closePopup')
       }).finally(() => {
         store.dispatch('getDepartament', { page: 1, itemsPerPage: 10})
       })
     } else {
-      store.dispatch('postDepartament', departament.value).then(() => {
+      store.dispatch('postDepartament', departament.value).then(() => {  // POST
         store.commit('closePopup')
       }).finally(() => {
         store.dispatch('getDepartament', { page: 1, itemsPerPage: 10})
       })
     }
 
-
-
-    // store.dispatch('postDepartament', departament.value).then((res) => {
-
-    //   store.commit("closePopup")
-
-    // }).finally(() => {
-    //   store.dispatch('getDepartament', { page: 1, itemsPerPage: 10})
-    // })
   } else {
     alert('Validation failed!')
   }

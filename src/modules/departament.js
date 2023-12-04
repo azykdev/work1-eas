@@ -10,6 +10,18 @@ const state = {
 }
 
 const mutations = {
+  // GET departament
+  getDepartamentStart(state) {
+    state.loading = true
+  },
+  getDepartamentSuccess(state) {
+    state.loading = false
+  },
+  getDepartamentError(state) {
+    state.loading = false
+  },
+
+  // POST departament
   postDepartamentStart(state) {
     state.loading = true
   },
@@ -19,6 +31,29 @@ const mutations = {
   postDepartamentError(state) {
     state.loading = false
   },
+
+  // DELETE departament
+  deleteDepartamentStart(state) {
+    state.loading = true
+  },
+  deleteDepartamentSuccess(state) {
+    state.loading = false
+  },
+  deleteDepartamentError(state) {
+    state.loading = false
+  },
+
+  // PUT departament
+  putDepartamentStart(state) {
+    state.loading = true
+  },
+  putDepartamentSuccess(state) {
+    state.loading = false
+  },
+  putDepartamentError(state) {
+    state.loading = false
+  },
+  
 
   // Edit data
   // FIXME CreateDepartamentPopup componentda bo'lim qo'shish tugmasi bosilganda ushbu funksiyani ishlatish mukin ! Agar bu funksiya ishlatilsa closePopup mutatsiyasidagi 36-qatordagi kod o'chirilishi kerak.
@@ -42,11 +77,11 @@ const actions = {
   getDepartament(context, payload) {
     return new Promise((resolve, reject) => {
 
-      context.commit("postDepartamentStart") 
+      context.commit("getDepartamentStart") 
 
       DepartamentService.getDepartament(payload).then(res => {
 
-        console.log(res);
+        // console.log(res);
 
         state.serverItems = []
         
@@ -58,11 +93,11 @@ const actions = {
 
         state.totalItems = res.headers["x-total-count"]
 
-        context.commit("postDepartamentSuccess") 
+        context.commit("getDepartamentSuccess") 
 
         resolve(res)
       }).catch(err => {
-        context.commit("postDepartamentError")  
+        context.commit("getDepartamentError")  
 
         reject(err)
       })
@@ -89,16 +124,16 @@ const actions = {
   deleteDepartament(context, id) {
     return new Promise((resolve, reject) => {
 
-      context.commit("postDepartamentStart") 
+      context.commit("deleteDepartamentStart") 
 
       DepartamentService.deleteDepartament(id).then(res => {
 
-        context.commit("postDepartamentSuccess") 
+        context.commit("deleteDepartamentSuccess") 
 
         resolve(res)
       }).catch(err => {
 
-        context.commit("postDepartamentError") 
+        context.commit("deleteDepartamentError") 
 
         reject(err)
       })
@@ -123,10 +158,19 @@ const actions = {
 
   putDepartament(context, data) {
     return new Promise((resolve, reject) => {
+
+      context.commit("putDepartamentStart")
+
       DepartamentService.putDepartament(data.id, data).then(res => {
         console.log(res);
+
+        context.commit("putDepartamentSuccess")
+
         resolve(res)
       }).catch(err => {
+
+        context.commit("putDepartamentError")
+
         reject(err)
       })
     })

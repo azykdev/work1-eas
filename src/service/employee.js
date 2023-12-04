@@ -3,10 +3,10 @@ import axios from "./axios";
 const EmployeeService = {
   // GET
   getEmployee(payload) {
-    return axios.get("/employees", {
+    return axios.get("/xodim/xodimlar", {
       params: {
-        _limit: payload.itemsPerPage,
-        _page: payload.page
+        skip: payload.page,
+        limit: payload.itemsPerPage,
       }
     })
   },

@@ -8,8 +8,7 @@ import { useStore } from 'vuex'
 
 // getting store
 const store = useStore()
-// Emits
-const emit = defineEmits(['closePopup'])
+
 
 // DATA ------------------------------------------------- 
 const refImgInput = ref()
@@ -64,12 +63,12 @@ const submitEmployeeForm = async () => {
   if (result) {
     store.dispatch('postEmployee', employee.value).then(() => {
     })
-    emit('closePopup')
 
     store.dispatch('getEmployee', { page: 1, itemsPerPage: 10})
   } else {
     alert('Validation failed!')
   }
+  
 }
 
 // COMPUTED --------------------------------------------------

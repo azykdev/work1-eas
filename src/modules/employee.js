@@ -1,13 +1,12 @@
 import EmployeeService from "@/service/employee"
 
 const state = {
+  loading: false,
   serverItems: [],
   totalItems: null,
-  loading: false,
-// Edit Data
-  editItemData: null,
-// Popup
-  employeePopupOpen: false
+  errors: null,
+  editItemData: null, // Edit Data
+  popup: false // Popup
 }
 
 const mutations = {
@@ -21,12 +20,14 @@ const mutations = {
     state.loading = false
   },
 
-  openPopupStart(state) {
-    state.employeePopupOpen = true
+  employeePopupOpen(state) {
+    state.popup = true
   },
-  openPopupEnd(state) {
-    state.employeePopupOpen = false
+  employeePopupClose(state) {
+    state.popup = false
+    state.editItemData = null
   }
+
 }
 
 const actions = {
@@ -38,27 +39,29 @@ const actions = {
 
       EmployeeService.getEmployee(payload).then(res => {
 
+        console.log(res);
+
         const newServerItems = [];
 
         res.data.forEach(item => {
           const newItem = {
             id: item.id,
             fullName: {
-              name: item.fName + " " + item.lName + " " + item.oName,
+              name: item.ism + " " + item.familiya + " " + item.sharif,
               image: item.image ? item.image : 'https://cdn-icons-png.flaticon.com/512/3177/3177440.png',
             },
             image: item.image,
-            fName: item.fName,
-            lName: item.lName,
-            oName: item.oName,
-            passport: `${item.seria} ${item.seriaRaqam}`,
-            jshir: item.jshir,
-            seria: item.seria,
-            seriaRaqam: item.seriaRaqam,
-            phone: item.phone,
-            birthday: item.birthday,
+            fName: item.ism, //+
+            lName: item.familiya, //+
+            oName: item.sharif, //+
+            passport: `${item.ps_seriya} ${item.ps_raqam}`,
+            jshir: item.jshir, //+
+            seria: item.ps_seriya, //+
+            seriaRaqam: item.ps_raqam, //+
+            phone: item.telefon, //+
+            birthday: item.tug_sana, //+
             gender: item.gender,
-            isActive: item.isActive
+            isActive: item.active //+
           }
 
           newServerItems.push(newItem)
@@ -91,6 +94,9 @@ const actions = {
   deleteEmployee(context, id) {
     return new Promise((resolve, reject) => {
       EmployeeService.deleteEmployee(id).then(res => {
+
+        context.commit("employeePopupOpen")
+
         resolve(res)
       }).catch(err => {
         reject(err)
@@ -103,7 +109,6 @@ const actions = {
       EmployeeService.getEmpEditData(id).then(res => {
         console.log(res);
         state.editItemData = res.data
-        context.commit("openPopupStart")
         resolve(res)
       }).catch(err => {
         reject(err)
