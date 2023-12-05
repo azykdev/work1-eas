@@ -70,7 +70,7 @@ import { mapState } from 'vuex'
 export default {
   data: () => ({
     headers: [
-      { key: 'id', title: '№', align: 'start', sortable: false },
+      { key: 'num', title: '№', align: 'start', sortable: false },
       { key: 'fullName', title: 'F.I.O', align: 'center' },
       { key: 'passport', title: 'Passport seria', align: 'center', sortable: false },
       { key: 'phone', title: 'Telefon', align: 'center', sortable: false },

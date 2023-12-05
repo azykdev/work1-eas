@@ -23,7 +23,7 @@ const employee = ref({
   tug_sana: '', //+
   telefon: '', //+
   gender: null,
-  active: false, //+
+  active: true, //+
 })
 // Maska
 const MaskOption = ref({

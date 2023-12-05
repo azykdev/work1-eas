@@ -77,8 +77,9 @@ const actions = {
 
         const newServerItems = [];
 
-        res.data.forEach(item => {
+        res.data.forEach((item, i) => {
           const newItem = {
+            num: i + 1,
             id: item.id,
             fullName: {
               name: item.ism + " " + item.familiya + " " + item.sharif,

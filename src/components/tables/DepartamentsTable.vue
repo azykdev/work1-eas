@@ -13,7 +13,7 @@
         size="small"
         class="me-2"
         @click="editItem(item)"
-        color="grey-500"
+        color="warning"
       >
         mdi-pencil
       </v-icon>
