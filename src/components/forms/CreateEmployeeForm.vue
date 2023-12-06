@@ -22,7 +22,7 @@ const employee = ref({
   ps_raqam: '', //+
   tug_sana: '', //+
   telefon: '', //+
-  gender: null,
+  gender: null, //
   active: true, //+
 })
 // Maska
@@ -309,11 +309,11 @@ watch(() => {
         >
           <v-radio
             label="Erkak"
-            value="man"
+            :value="1"
           ></v-radio>
           <v-radio
             label="Ayol"
-            value="woman"
+            :value="2"
           ></v-radio>
         </v-radio-group>
       </VCol>

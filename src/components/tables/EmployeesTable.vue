@@ -32,6 +32,7 @@
       <v-switch
         color="success"
         v-model="item.raw.isActive"
+        @change="changeIsActive(item)"
       ></v-switch>
     </template>
 
@@ -65,8 +66,6 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
-
 export default {
   data: () => ({
     headers: [
@@ -77,7 +76,7 @@ export default {
       { key: 'isActive', title: '', align: 'center', sortable: false },
       { key: 'actions', title: '', align: 'center', sortable: false },
     ],
-    itemsPerPage: 10
+    itemsPerPage: 10,
   }),
 
   methods: {
@@ -85,7 +84,7 @@ export default {
       this.$store.dispatch('getEmployee', { page, itemsPerPage })
     },
     deleteItem(item) {
-      if(confirm("O'chirishni xohlaysizmi?")) {
+      if (confirm("O'chirishni xohlaysizmi?")) {
         this.$store.dispatch('deleteEmployee', item.value).then(() => {
           this.$store.dispatch('getEmployee', { page: 1, itemsPerPage: 10 })
         })
@@ -93,10 +92,32 @@ export default {
     },
     editItem(item) {
       this.$store.dispatch('getEmpEditData', item.value)
-    }
+    },
+    changeIsActive(item) {
+      console.log(item.raw)
+
+      const newEmployee = {
+        id: item.raw.id,
+        familiya: item.raw.lName,
+        ism: item.raw.fName,
+        sharif: item.raw.oName,
+        gender: item.raw.gender,
+        telefon: item.raw.phone,
+        // tg_id: 0,
+        active: item.raw.isActive,
+        jshir: item.raw.jshir,
+        ps_seriya: item.raw.seria,
+        ps_raqam: item.raw.seriaRaqam,
+        tug_sana: item.raw.birthday,
+      }
+
+
+      this.$store.dispatch('putEmployee', newEmployee).then((res) => {
+        console.log(res)
+        this.$store.dispatch('getEmployee', { page: 1, itemsPerPage: 10 })
+      })
+    },
   },
-  computed: {
-    
-  },
+  computed: {},
 }
 </script>

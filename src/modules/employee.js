@@ -74,7 +74,6 @@ const actions = {
 
       EmployeeService.getEmployee(payload).then(res => {
 
-
         const newServerItems = [];
 
         res.data.forEach((item, i) => {
@@ -95,7 +94,7 @@ const actions = {
             seriaRaqam: item.ps_raqam, //+
             phone: item.telefon, //+
             birthday: item.tug_sana, //+
-            gender: item.gender,
+            gender: item.gender, //+
             isActive: item.active //+
           }
 

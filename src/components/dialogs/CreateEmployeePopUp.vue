@@ -24,13 +24,14 @@ const store = useStore()
         <v-card>
           <v-card-title class="d-flex justify-space-between">
             <p>Xodim qo'shish</p>
-            <v-card-actions>
+            <v-card-actions class="position-relative">
               <v-spacer></v-spacer>
 
               <v-btn
                 icon="mdi-close"
                 color="secondary"
                 @click="store.commit('employeePopupClose')"
+                style="position: fixed; right: 20px;"
               >
               </v-btn>
             </v-card-actions>
