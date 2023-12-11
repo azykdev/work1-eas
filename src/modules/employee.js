@@ -3,7 +3,7 @@ import EmployeeService from "@/service/employee"
 const state = {
   loading: false,
   serverItems: [],
-  totalItems: null,
+  totalItems: 0,
   errors: null,
   editItemData: null, // Edit Data
   popup: false // Popup

@@ -57,7 +57,7 @@ const theme = {
         'primary': '#9155FD',
         'secondary': '#8A8D93',
         'on-secondary': '#fff',
-        'success': '#56CA00',
+        'success': '#019267',
         'info': '#16B1FF',
         'warning': '#FFB400',
         'error': '#FF4C51',

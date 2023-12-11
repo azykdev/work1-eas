@@ -3,7 +3,7 @@ import DepartamentService from "@/service/departament";
 const state = {
   loading: false,
   serverItems: [],
-  totalItems: null,
+  totalItems: 0,
   errors: null,
   editItemData: null, // Edit Data
   popup: false, // Popup
@@ -81,7 +81,7 @@ const actions = {
 
       DepartamentService.getDepartament(payload).then(res => {
 
-        // console.log(res);
+        console.log(res);
 
         state.serverItems = []
         

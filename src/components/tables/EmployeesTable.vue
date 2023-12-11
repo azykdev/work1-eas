@@ -56,14 +56,14 @@
 
     <template v-slot:no-data>
 
-      <p class="text-center my-5">Ma'lumot topilmadi!</p>
+      <p class="text-center my-5">Ma'lumot topilmadi !</p>
 
-      <v-btn
+      <!-- <v-btn
         color="primary"
         @click="initialize"
       >
         Reset
-      </v-btn>
+      </v-btn> -->
     </template>
   </v-data-table-server>
 </template>
