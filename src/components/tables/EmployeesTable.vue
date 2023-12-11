@@ -73,7 +73,7 @@ export default {
   data: () => ({
     headers: [
       { key: 'num', title: '№', align: 'start', sortable: false },
-      { key: 'fullName', title: 'F.I.O', align: 'center' },
+      { key: 'fullName', title: 'F.I.O', align: 'center', sortable: false  },
       { key: 'passport', title: 'Passport seria', align: 'center', sortable: false },
       { key: 'phone', title: 'Telefon', align: 'center', sortable: false },
       { key: 'isActive', title: '', align: 'center', sortable: false },

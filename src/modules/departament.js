@@ -81,7 +81,7 @@ const actions = {
 
       DepartamentService.getDepartament(payload).then(res => {
 
-        console.log(res);
+        // console.log(res);
 
         state.serverItems = []
         
