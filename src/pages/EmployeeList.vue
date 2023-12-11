@@ -2,18 +2,34 @@
 import { ref } from 'vue'
 import CreateEmployeePopUp from '@/components/dialogs/CreateEmployeePopUp.vue'
 import EmployeesTable from '@/components/tables/EmployeesTable.vue'
+import axios from 'axios';
+import { useStore } from 'vuex';
+import { watch } from 'vue';
 
-let loaded = ref(false)
+// getting store
+const store = useStore()
+
+// DATA
+const searchText = ref('')
 let loading = ref(false)
 
+// METHODS
 const onClick = () => {
   loading.value = true
-
-  setTimeout(() => {
+  store.dispatch('getEmployee', { page: 1, itemsPerPage: 10, q: searchText.value }).then((res) => {
     loading.value = false
-    loaded.value = true
-  }, 2000)
+  })
 }
+
+// WATCHERS
+watch(searchText, () => {
+  if (typeof searchText.value == false || searchText.value == '') {
+    loading.value = true
+    store.dispatch('getEmployee', { page: 1, itemsPerPage: 10, q: searchText.value }).then((res) => {
+      loading.value = false
+    })
+  }
+})
 </script>
 
 <template>
@@ -29,14 +45,16 @@ const onClick = () => {
       cols="12"
       sm="6"
     >
-      <v-form class="d-flex align-center justify-space-between">
+      <v-form class="d-flex align-center justify-space-between" @submit.prevent>
         <v-text-field
+          v-model="searchText"
           append-inner-icon="mdi-magnify"
           :loading="loading"
           variant="solo-filled"
-          label="Search templates"
+          label="Search..."
           hide-details
           @click:append-inner="onClick"
+          @keydown.enter="onClick"
         ></v-text-field>
       </v-form>
     </v-col>

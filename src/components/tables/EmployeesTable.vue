@@ -55,6 +55,9 @@
     </template>
 
     <template v-slot:no-data>
+
+      <p class="text-center my-5">Ma'lumot topilmadi!</p>
+
       <v-btn
         color="primary"
         @click="initialize"
@@ -103,14 +106,12 @@ export default {
         sharif: item.raw.oName,
         gender: item.raw.gender,
         telefon: item.raw.phone,
-        // tg_id: 0,
-        active: item.raw.isActive,
+        active: item.raw.isActive, 
         jshir: item.raw.jshir,
         ps_seriya: item.raw.seria,
         ps_raqam: item.raw.seriaRaqam,
         tug_sana: item.raw.birthday,
       }
-
 
       this.$store.dispatch('putEmployee', newEmployee).then((res) => {
         console.log(res)

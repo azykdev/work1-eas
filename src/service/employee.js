@@ -7,6 +7,7 @@ const EmployeeService = {
       params: {
         skip: payload.page,
         limit: payload.itemsPerPage,
+        q: payload.q ? payload.q : ''
       }
     })
   },
