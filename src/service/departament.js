@@ -15,6 +15,9 @@ const DepartamentService = {
   postDepartament(data) {
     return axios.post("/bulim/bulimlar", data)
   },
+  postEmpDep(data) {
+    return axios.post("/xodim-bulim/bulimlar", data)
+  },
 
   // DELETE
   deleteDepartament(id) {

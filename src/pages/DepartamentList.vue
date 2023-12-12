@@ -62,5 +62,7 @@ onMounted(() => {
     </v-col>
   </v-row>
 
+  
+  
   <DepartamentsTable />
 </template>

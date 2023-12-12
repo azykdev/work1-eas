@@ -44,7 +44,6 @@
               :key="item.raw.id"
             >
               <v-expansion-panel-title
-                @click="getDepId(item)"
                 class="pa-7 bg-grey-100"
                 >{{ item.value }}</v-expansion-panel-title
               >
@@ -110,7 +109,7 @@
                       <v-btn
                         color="success"
                         class="mt-5"
-                        @click="addXodim(item)"
+                        @click="attachEmpDep(item)"
                       >
                         Biriktirish
                       </v-btn>
@@ -128,12 +127,16 @@
                       v-if="item.raw.xodimlar.length > 0"
                     >
                       <v-list-item
-                        v-for="n in item.raw.xodimlar.length"
-                        :key="n"
-                        :title="'Item ' + n"
-                        subtitle="Lorem ipsum dolor sit amet consectetur adipisicing elit"
-                        prepend-avatar="https://randomuser.me/api/portraits/women/8.jpg"
+                        v-for="item in item.raw.xodimlar"
+                        :key="item.xodim_id"
+                        :title="item.xodim.familiya + ' ' + item.xodim.ism + ' ' + item.xodim.sharif"
+                        prepend-avatar="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8dXNlcnxlbnwwfHwwfHx8MA%3D%3D"                        
                       >
+                        <v-list-item-subtitle>
+                          <span class="me-5">{{ item.lavozim }}</span>
+                          <span class="me-5">{{ item.xodim.telefon }}</span>
+                          <span class="me-5"> <b>{{ item.xodim.ps_seriya }}</b> {{ item.xodim.ps_raqam }}</span>
+                        </v-list-item-subtitle>
                         <v-divider class="mt-3"></v-divider>
                       </v-list-item>
                     </v-list>
@@ -226,15 +229,25 @@ export default {
     // editItem(item) {
     //   this.$store.dispatch('getDepEditData', item.value)
     // },
-    getDepId(item) {
+    
+    attachEmpDep(item) {
       this.postEmpDepData.bulim_id = item.raw.id
-    },
+      this.$store.dispatch('postEmpDep', this.postEmpDepData)
+        .then(() => {
+          this.$store.dispatch('getDepartament', { page: 1, itemsPerPage: 10 })
+        })
+        .finally(() => {
+          this.postEmpDepData = {
+            xodim_id: null,
+            bulim_id: null,
+            lavozim: '',
+          }
+        })
+    }
   },
   mounted() {
     this.$store.dispatch('getEmployee', { page: 1, itemsPerPage: 10 }).then(res => {
       this.selectItems = []
-
-      console.log(res, 'items')
 
       res.data.forEach(item => {
         this.selectItems.push({

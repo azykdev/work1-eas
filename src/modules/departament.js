@@ -81,7 +81,7 @@ const actions = {
 
       DepartamentService.getDepartament(payload).then(res => {
 
-        // console.log(res);
+        console.log(res);
 
         state.serverItems = []
         
@@ -115,6 +115,25 @@ const actions = {
         resolve(res)
         }).catch(err => {
         context.commit("postDepartamentError") // TODO bu yerda ikkinchi parametrga error data beriladi
+        reject(err)
+      })
+    })
+  },
+
+  postEmpDep(context, data) {
+    return new Promise((resolve, reject) => {
+
+      context.commit("postDepartamentStart")
+
+      DepartamentService.postEmpDep(data).then(res => {
+
+        context.commit("postDepartamentSuccess")
+
+        resolve(res)
+      }).catch(err => {
+
+        context.commit("postDepartamentError")
+
         reject(err)
       })
     })
