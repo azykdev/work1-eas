@@ -17,7 +17,7 @@ const store = useStore()
     >
     Bo'lim qo'shish
       <v-dialog
-        v-model="store.state.departament.popup"
+        v-model="store.state.departament.createDepPopup"
         max-width="600"
         activator="parent"
         persistent
@@ -31,7 +31,7 @@ const store = useStore()
               <v-btn
                 icon="mdi-close"
                 color="secondary"
-                @click="store.commit('closePopup')"
+                @click="store.commit('departamentPopupClose')"
               >
               </v-btn>
             </v-card-actions>

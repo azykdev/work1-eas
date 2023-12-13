@@ -3,7 +3,7 @@
   "version": "2.1.0",
   "private": true,
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --host 0.0.0.0",
     "build": "vite build",
     "preview": "vite preview --port 5050",
     "lint": "eslint . -c .eslintrc.js --fix --ext .ts,.js,.vue,.tsx,.jsx",

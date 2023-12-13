@@ -21,13 +21,13 @@ const submitDepartamentForm = async () => {
 
     if (store.state.departament.editItemData) {
       store.dispatch('putDepartament', departament.value).then(() => { // PUT
-        store.commit('closePopup')
+        store.commit('departamentPopupClose')
       }).finally(() => {
         store.dispatch('getDepartament', { page: 1, itemsPerPage: 10})
       })
     } else {
       store.dispatch('postDepartament', departament.value).then(() => {  // POST
-        store.commit('closePopup')
+        store.commit('departamentPopupClose')
       }).finally(() => {
         store.dispatch('getDepartament', { page: 1, itemsPerPage: 10})
       })

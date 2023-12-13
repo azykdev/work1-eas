@@ -2,11 +2,14 @@ import EmployeeService from "@/service/employee"
 
 const state = {
   loading: false,
-  serverItems: [],
+  employees: [],
   totalItems: 0,
   errors: null,
   editItemData: null, // Edit Data
-  popup: false // Popup
+  createEmpPopup: false, // Popup
+
+  // Attach Departament and Employee
+  empSelectItems: [],
 }
 
 const mutations = {
@@ -56,10 +59,10 @@ const mutations = {
 
   // Popup mutaions
   employeePopupOpen(state) {
-    state.popup = true
+    state.createEmpPopup = true
   },
   employeePopupClose(state) {
-    state.popup = false
+    state.createEmpPopup = false
     state.editItemData = null
   }
 
@@ -75,6 +78,7 @@ const actions = {
       EmployeeService.getEmployee(payload).then(res => {
 
         const newServerItems = [];
+        state.empSelectItems = []
 
         res.data.forEach((item, i) => {
           const newItem = {
@@ -99,9 +103,16 @@ const actions = {
           }
 
           newServerItems.push(newItem)
+
+          
+
+          state.empSelectItems.push({
+            id: item.id,
+            fullName: item.ism + " " + item.familiya + " " + item.sharif
+          })
         })
 
-        state.serverItems = JSON.parse(JSON.stringify(newServerItems));
+        state.employees = JSON.parse(JSON.stringify(newServerItems));
         state.totalItems = res.headers["x-total-count"]
         context.commit('getEmployeeSuccess');
 

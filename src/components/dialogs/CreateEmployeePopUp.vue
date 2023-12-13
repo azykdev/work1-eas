@@ -16,7 +16,7 @@ const store = useStore()
     >
     Xodim qo'shish
       <v-dialog
-        v-model="store.state.employee.popup"
+        v-model="store.state.employee.createEmpPopup"
         max-width="600"
         activator="parent"
         persistent

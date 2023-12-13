@@ -3,12 +3,15 @@ import axios from "./axios";
 const DepartamentService = {
   // GET
   getDepartament(payload) {
-    return axios.get("/xodim-bulim/bulimlar", {
+    return axios.get("/bulim/bulimlar", {
       params: {
         skip: payload.page,
         limit: payload.itemsPerPage,
       }
     })
+  },
+  getEmpDep(payload) {
+    return axios.get("/xodim-bulim/bulimlar")
   },
 
   // POST

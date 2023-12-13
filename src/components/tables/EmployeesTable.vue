@@ -3,7 +3,7 @@
     v-model:items-per-page="itemsPerPage"
     :headers="headers"
     :items-length="$store.state.employee.totalItems"
-    :items="$store.state.employee.serverItems"
+    :items="$store.state.employee.employees"
     :loading="$store.state.employee.loading"
     class="elevation-1 pb-2"
     @update:options="loadItems"

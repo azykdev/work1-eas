@@ -2,6 +2,7 @@
 // IMPORTS
 import CreateDepartamentPopUp from '@/components/dialogs/CreateDepartamentPopUp.vue'
 import DepartamentsTable from '@/components/tables/DepartamentsTable.vue'
+import DepartamentExPanel from '@/components/expansionPanel/DepartamentExPanel.vue'
 import axios from 'axios'
 import { onMounted, ref } from 'vue'
 import { useStore } from 'vuex'
@@ -9,9 +10,11 @@ import { useStore } from 'vuex'
 // getting store
 const store = useStore()
 
+// DATA
 let loaded = ref(false)
 let loading = ref(false)
 
+// METHODS
 const onClick = () => {
   loading.value = true
 
@@ -21,9 +24,27 @@ const onClick = () => {
   }, 2000)
 }
 
+// COMPUTED
+const departaments = computed(() => {
+  return store.state.departament.departaments
+})
+
+// LIFECYCLE
 onMounted(() => {
+
+  store.dispatch('getDepartament', { page: 1 }).then(() => {
+    console.log("-->>", departaments.value);
+  })
+  store.dispatch('getEmpDep')
+
+  
+  
   // axios
-  //   .get('http://t1.zarmeduniver.com:8005/bulim/bulimlar')
+  //   .get('http://t1.zarmeduniver.com:8005/xodim/xodimlar', {
+  //     params: {
+  //       skip: 1,
+  //     }
+  //   })
   //   .then(res => {
   //     console.log(res)
   //   })
@@ -62,7 +83,10 @@ onMounted(() => {
     </v-col>
   </v-row>
 
+  <div>
+    <DepartamentExPanel />
+  </div>
+
   
   
-  <DepartamentsTable />
 </template>

@@ -2,11 +2,15 @@ import DepartamentService from "@/service/departament";
 
 const state = {
   loading: false,
-  serverItems: [],
+  departaments: [],
   totalItems: 0,
   errors: null,
   editItemData: null, // Edit Data
-  popup: false, // Popup
+  createDepPopup: false, // Popup
+
+  // Attach Departament and Employee
+  departamentsWithEmployee: [],
+  attachDepEmpPopup: false
 }
 
 const mutations = {
@@ -62,12 +66,18 @@ const mutations = {
   // },
 
   // Popup methods
-  openPopup(state) {
-    state.popup = true
+  departamentPopupOpen(state) {
+    state.createDepPopup = true
   },
-  closePopup(state) {
-    state.popup = false
+  departamentPopupClose(state) {
+    state.createDepPopup = false
     state.editItemData = null
+  },
+  attachDepEmpPopupOpen(state) {
+    state.attachDepEmpPopup = true
+  },
+  attachDepEmpPopupClose(state) {
+    state.attachDepEmpPopup = false
   }
 
 }
@@ -81,16 +91,16 @@ const actions = {
 
       DepartamentService.getDepartament(payload).then(res => {
 
-        console.log(res);
+        // console.log(res);
 
-        state.serverItems = []
-        
+        // state.departaments = []
         // Bo'limlarga tartib raqam berish
-        res.data.forEach((item, i) => {
-          item.num = i + 1
-          state.serverItems.push(item)
-        });
+        // res.data.forEach((item, i) => {
+        //   item.num = i + 1
+        //   state.departaments.push(item)
+        // });
 
+        state.departaments = JSON.parse(JSON.stringify(res.data));
         state.totalItems = res.headers["x-total-count"]
 
         context.commit("getDepartamentSuccess") 
@@ -98,6 +108,27 @@ const actions = {
         resolve(res)
       }).catch(err => {
         context.commit("getDepartamentError")  
+
+        reject(err)
+      })
+    })
+  },
+  getEmpDep(context) {
+    return new Promise((resolve, reject) => {
+
+      context.commit("getDepartamentStart")
+
+      DepartamentService.getEmpDep().then(res => {
+
+        state.departamentsWithEmployee = JSON.parse(JSON.stringify(res.data));
+
+        context.commit("getDepartamentSuccess")
+
+        resolve(res)
+        
+      }).catch(err => {
+
+        context.commit("getDepartamentError")
 
         reject(err)
       })
@@ -166,7 +197,7 @@ const actions = {
       DepartamentService.getDepEditData(id).then(res => {
 
         state.editItemData = res.data
-        context.commit("openPopup")
+        context.commit("departamentPopupOpen")
 
         resolve(res)
       }).catch(err => {
@@ -197,7 +228,8 @@ const actions = {
 }
 
 const getters = {
-
+  departaments: state => state.departaments,
+  // departamentsWithEmployee: state => state.departamentsWithEmployee,
 }
 
 export default { state, mutations, actions, getters }

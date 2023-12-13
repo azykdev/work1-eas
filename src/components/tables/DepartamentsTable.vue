@@ -3,7 +3,7 @@
     v-model:items-per-page="itemsPerPage"
     :headers="headers"
     :items-length="$store.state.departament.totalItems"
-    :items="$store.state.departament.serverItems"
+    :items="$store.state.departament.departaments"
     :loading="$store.state.departament.loading"
     :group-by="groupBy"
     item-value="bulim_name"
@@ -256,7 +256,7 @@ export default {
         })
       })
 
-      // this.$store.state.employee.serverItems.forEach((item) => {
+      // this.$store.state.employee.departaments.forEach((item) => {
       //   console.log(item.fullName.name);
       // })
     })
