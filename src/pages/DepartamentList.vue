@@ -32,10 +32,10 @@ const departaments = computed(() => {
 // LIFECYCLE
 onMounted(() => {
 
-  store.dispatch('getDepartament', { page: 1 }).then(() => {
-    console.log("-->>", departaments.value);
-  })
-  store.dispatch('getEmpDep')
+  // store.dispatch('getDepartament', { page: 1 }).then(() => {
+  //   console.log("-->>", departaments.value);
+  // })
+  // store.dispatch('getDepWithEmployees')
 
   
   

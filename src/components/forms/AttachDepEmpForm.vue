@@ -12,11 +12,13 @@ const attachData = ref({
   xodim_id: null,
   bulim_id: props.departament.id,
   lavozim: '',
+  stavka: 0
 })
 
 // PROPS --------------------------------------------------
 const props = defineProps({
-  departament: Object
+  departament: Object,
+  getItemFunc: Function
 })
 
 console.log(props.departament);
@@ -30,15 +32,18 @@ const submitDepartamentForm = async () => {
 
     store.dispatch('postEmpDep', attachData.value).then((res) => {
       console.log(res);
-      store.dispatch('getEmpDep')
+      store.dispatch('getDepWithEmployees')
     }).finally(() => {
       attachData.value = {
         xodim_id: null,
         bulim_id: null,
         lavozim: '',
+        stavka: 0
       }
 
       store.commit('attachDepEmpPopupClose')
+
+      props.getItemFunc(props.departament.id)
     })
   } else {
     alert('Validation failed!')
@@ -54,6 +59,7 @@ const rules = computed(() => {
   return {
     xodim_id: { required },
     lavozim: { required },
+    stavka: { required }
   }
 })
 const v$ = useVuelidate(rules, attachData)
@@ -85,6 +91,21 @@ const v$ = useVuelidate(rules, attachData)
         prepend-inner-icon="mdi-sitemap"
         v-model="attachData.lavozim"
         :error-messages="v$.lavozim.$errors.map(e => e.$message)"
+      />
+    </div>
+
+    <div class="mb-3">
+      <VTextField
+        type="number"
+        label="Stavka"
+        density="comfortable"
+        clearable
+        prepend-inner-icon="mdi-briefcase"
+        v-model="attachData.stavka"
+        :error-messages="v$.stavka.$errors.map(e => e.$message)"
+        class="w-50"
+        min="0"
+        step="0.25"
       />
     </div>
 

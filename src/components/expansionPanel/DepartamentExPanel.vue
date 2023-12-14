@@ -3,10 +3,10 @@
     <v-expansion-panels>
       <v-expansion-panel
         
-        v-for="(item, index) in departamentsWithEmployee"
+        v-for="(item, index) in departaments"
         :key="item.id"
       >
-        <v-expansion-panel-title class="bg-grey-100 py-7">{{ item.bulim_name }}  {{ index }}</v-expansion-panel-title>
+        <v-expansion-panel-title @click="getItem(item.id)" class="bg-grey-100 py-7">{{ item.bulim_name }}  {{ index }}</v-expansion-panel-title>
         <v-expansion-panel-text class="mt-5">
           <!-- Employee Card -->
           <v-card
@@ -16,15 +16,15 @@
             <v-card-item class="">
               <v-card-title>
                 <div class="d-flex justify-space-between flex-wrap">
-                  <div class="me-5">Bo'lim nomi: <span class="text-primary">{{ item.bulim_name }}</span></div>
+                  <div class="me-5">Bo'lim nomi: <span class="text-primary">{{ depWithEmployee.bulim_name }}</span></div>
 
                   <!-- Additional information -->
                   <div
                     id="departament-attach"
                     class="pb-1"
                   >
-                    <div>
-                      Xodimlar: <span class="text-primary">{{ item.xodimlar.length }}</span> ta
+                    <div v-if="depWithEmployee.xodimlar">
+                      Xodimlar: <span class="text-primary">{{ depWithEmployee.xodimlar.length }}</span> ta
                     </div>
                   </div>
 
@@ -34,7 +34,8 @@
                     class="pb-1 d-flex align-center"
                   >
                     <AttachDepEmpPopup
-                      :departament="item"
+                      :departament="depWithEmployee"
+                      :getItemFunc="getItem"
                       class="me-2"
                     />
                     <v-icon
@@ -44,18 +45,14 @@
                     >
                       mdi-pencil
                     </v-icon>
-                    <!-- <v-btn
-                      icon="mdi-pencil"
-                      color="warning"
-                      class="me-3"
-                    >
-                    </v-btn> -->
-                    <v-btn
-                      icon="mdi-delete"
+                    <v-icon
+                      size="small"
+                      class="mx-3"
                       color="error"
-                      class="me-3"
-                      v-if="item.xodimlar.length <= 0"
-                    ></v-btn>
+                    >
+                      mdi-delete
+                    </v-icon>
+                    
                   </div>
                 </div>
               </v-card-title>
@@ -67,7 +64,7 @@
               <v-list lines="three">
                 <v-list-item
                   class="rounded"
-                  v-for="xodim in item.xodimlar"
+                  v-for="xodim in depWithEmployee.xodimlar"
                   :key="xodim.id"
                   :value="xodim.id"
                   prepend-avatar="https://randomuser.me/api/portraits/women/8.jpg"
@@ -94,7 +91,7 @@
                 </v-list-item>
               </v-list>
 
-              
+              <!-- <AllEmployeesTable :allEmployees="item.xodimlar" /> -->
 
               
             </v-card-text>
@@ -107,22 +104,49 @@
 </template>
 
 <script>
+import { watch } from 'vue';
 import AttachDepEmpPopup from '../dialogs/AttachDepEmpPopup.vue'
+import AllEmployeesTable from '../tables/AllEmployeesTable.vue';
 
 export default {
   name: 'DepartamentExPanel',
-  data: () => ({}),
-  methods: {},
-  computed: {
-    departaments() {
-      return this.$store.state.departament.departaments
-    },
-    departamentsWithEmployee() {
-      return this.$store.state.departament.departamentsWithEmployee
-    },
+  data: () => ({
+    departaments: [],
+    depWithEmployee: [],
+    headers: [
+      
+    ],
+  }),
+  methods: {
+    // loadItems() {
+    //   this.$store.dispatch('getDepartament', { page: 1 })
+    // },
+    getItem(id) {
+      this.$store.dispatch('getDepWithEmployeesByDepId', id).then((res) => {
+        console.log(res);
+        this.depWithEmployee = JSON.parse(JSON.stringify(res.data))
+      })
+    }
   },
-  mounted() {},
-  components: { AttachDepEmpPopup },
+  computed: {
+    // departaments() {
+    //   return this.$store.state.departament.departaments
+    // },
+    // departamentsWithEmployee() {
+    //   return this.$store.state.departament.departamentsWithEmployee
+    // },
+    // getDepWithEmployeesByDepId() {
+    //   return this.$store.state.departament.getDepWithEmployeesByDepId
+    // },
+  },
+  mounted() {
+    this.$store.dispatch('getDepartament', { page: 1 }).then((res) => {
+      console.log('res-->', res);
+      this.departaments = [...res.data]
+    })
+  },
+  components: { AttachDepEmpPopup, AllEmployeesTable },
+  
 }
 </script>
 

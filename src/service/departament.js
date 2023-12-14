@@ -2,7 +2,7 @@ import axios from "./axios";
 
 const DepartamentService = {
   // GET
-  getDepartament(payload) {
+  getDepartament(payload) {     // only for all departament
     return axios.get("/bulim/bulimlar", {
       params: {
         skip: payload.page,
@@ -10,9 +10,13 @@ const DepartamentService = {
       }
     })
   },
-  getEmpDep(payload) {
+  getDepWithEmployees(payload) {                // all departament with employees
     return axios.get("/xodim-bulim/bulimlar")
   },
+  getDepWithEmployeesByDepId(payload) {        // departament with employees by departament id
+    return axios.get(`/xodim-bulim/bulim/${payload}`)
+  },
+  
 
   // POST
   postDepartament(data) {

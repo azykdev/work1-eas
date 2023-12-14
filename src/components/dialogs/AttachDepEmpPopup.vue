@@ -29,7 +29,7 @@
           </v-card-title>
 
           <v-card-text>
-            <AttachDepEmpForm :departament="departament" />
+            <AttachDepEmpForm :departament="departament" :getItemFunc="getItemFunc" />
           </v-card-text>
         </v-card>
       </v-dialog>
@@ -64,6 +64,10 @@
     props: {
       departament: {
         type: Object,
+        required: true
+      },
+      getItemFunc: {
+        type: Function,
         required: true
       }
     }

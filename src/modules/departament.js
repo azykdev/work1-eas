@@ -2,7 +2,7 @@ import DepartamentService from "@/service/departament";
 
 const state = {
   loading: false,
-  departaments: [],
+  departaments: null,
   totalItems: 0,
   errors: null,
   editItemData: null, // Edit Data
@@ -10,6 +10,7 @@ const state = {
 
   // Attach Departament and Employee
   departamentsWithEmployee: [],
+  getDepWithEmployeesByDepId: null,
   attachDepEmpPopup: false
 }
 
@@ -113,12 +114,12 @@ const actions = {
       })
     })
   },
-  getEmpDep(context) {
+  getDepWithEmployees(context) {
     return new Promise((resolve, reject) => {
 
       context.commit("getDepartamentStart")
 
-      DepartamentService.getEmpDep().then(res => {
+      DepartamentService.getDepWithEmployees().then(res => {
 
         state.departamentsWithEmployee = JSON.parse(JSON.stringify(res.data));
 
@@ -126,6 +127,26 @@ const actions = {
 
         resolve(res)
         
+      }).catch(err => {
+
+        context.commit("getDepartamentError")
+
+        reject(err)
+      })
+    })
+  },
+  getDepWithEmployeesByDepId(context, id) {
+    return new Promise((resolve, reject) => {
+
+      context.commit("getDepartamentStart")
+
+      DepartamentService.getDepWithEmployeesByDepId(id).then(res => {
+
+        state.getDepWithEmployeesByDepId = JSON.parse(JSON.stringify(res.data));
+
+        context.commit("getDepartamentSuccess")
+
+        resolve(res)
       }).catch(err => {
 
         context.commit("getDepartamentError")
