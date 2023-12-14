@@ -3,14 +3,13 @@
 import useVuelidate from '@vuelidate/core'
 import { maxLength, minLength, required } from '@vuelidate/validators'
 import { vMaska } from 'maska'
-import { computed, ref, onMounted, watch } from 'vue'
+import { computed, onMounted, ref, watch } from 'vue'
 import { useStore } from 'vuex'
 
 // getting store
 const store = useStore()
 
-
-// DATA ------------------------------------------------- 
+// DATA -------------------------------------------------
 const refImgInput = ref()
 const employee = ref({
   image: 'https://cdn-icons-png.flaticon.com/512/3177/3177440.png',
@@ -28,20 +27,20 @@ const employee = ref({
 // Maska
 const MaskOption = ref({
   phoneMaskOption: {
-    mask: '+998 (##) ### ## ##',
-    // eager: true,
+    mask: '+998#########',
+    eager: true,
   },
   jshirMaskOption: {
     mask: '##############',
   },
   seriaOption: {
     preProcess: val => val.toUpperCase(),
-    mask: '@@'
+    mask: '@@',
   },
   seriaRaqamOption: {
     mask: '#######',
   },
-});
+})
 
 // METHODS ---------------------------------------------------
 // Change avatar
@@ -60,25 +59,30 @@ const submitEmployeeForm = async () => {
   const result = await v$.value.$validate()
 
   if (result) {
-  
     if (store.state.employee.editItemData) {
-      store.dispatch('putEmployee', employee.value).then(() => { // PUT
-        store.commit('employeePopupClose')
-      }).finally(() => {
-        store.dispatch('getEmployee', { page: 1, itemsPerPage: 10})
-      })
+      store
+        .dispatch('putEmployee', employee.value)
+        .then(() => {
+          // PUT
+          store.commit('employeePopupClose')
+        })
+        .finally(() => {
+          store.dispatch('getEmployee', { page: 1, itemsPerPage: 10 })
+        })
     } else {
-      store.dispatch('postEmployee', employee.value).then(() => {  // POST
-        store.commit('employeePopupClose')
-      }).finally(() => {
-        store.dispatch('getEmployee', { page: 1, itemsPerPage: 10})
-      })
+      store
+        .dispatch('postEmployee', employee.value)
+        .then(() => {
+          // POST
+          store.commit('employeePopupClose')
+        })
+        .finally(() => {
+          store.dispatch('getEmployee', { page: 1, itemsPerPage: 10 })
+        })
     }
-    
   } else {
     alert('Validation failed!')
   }
-
 }
 
 // COMPUTED --------------------------------------------------
@@ -86,7 +90,8 @@ const editItemDatas = computed(() => {
   return store.state.employee.editItemData
 })
 
-const rules = computed(() => {   // Rules
+const rules = computed(() => {
+  // Rules
   return {
     ism: { required, minLength: minLength(3), maxLength: maxLength(20) },
     familiya: { required, minLength: minLength(3), maxLength: maxLength(20) },
@@ -95,7 +100,7 @@ const rules = computed(() => {   // Rules
     ps_seriya: { required, maxLength: minLength(2) },
     ps_raqam: { required, maxLength: minLength(7) },
     tug_sana: { required },
-    telefon: { required, minLength: minLength(19) },
+    telefon: { required, minLength: minLength(13) },
     gender: { required },
   }
 })
@@ -103,23 +108,17 @@ const rules = computed(() => {   // Rules
 const v$ = useVuelidate(rules, employee)
 
 // MOUNTED ------------------------------------------------
-onMounted(() => {
-  
-}),
-
-// WATCH ------------------------------------------------
-watch(() => {
-  if(editItemDatas.value) {
-    employee.value = JSON.parse(JSON.stringify(editItemDatas.value))
-  }
-})
+onMounted(() => {}),
+  // WATCH ------------------------------------------------
+  watch(() => {
+    if (editItemDatas.value) {
+      employee.value = JSON.parse(JSON.stringify(editItemDatas.value))
+    }
+  })
 </script>
 
 <template>
-  <VForm
-    @submit.prevent="submitEmployeeForm"
-    
-  > 
+  <VForm @submit.prevent="submitEmployeeForm">
     <VRow>
       <!-- 👉 Avatar -->
       <VCol
@@ -287,6 +286,7 @@ watch(() => {
             sm="6"
           >
             <VTextField
+              maxlength="13"
               label="Telefon raqam"
               variant="outlined"
               density="comfortable"
@@ -326,11 +326,9 @@ watch(() => {
           type="submit"
           color="success"
           size="small"
-
         >
           Yuborish
         </VBtn>
-       
 
         <VBtn
           color="secondary"
