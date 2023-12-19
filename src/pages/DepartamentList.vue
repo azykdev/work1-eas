@@ -1,60 +1,39 @@
-<script setup>
+<script>
 // IMPORTS
 import CreateDepartamentPopUp from '@/components/dialogs/CreateDepartamentPopUp.vue'
-import DepartamentsTable from '@/components/tables/DepartamentsTable.vue'
 import DepartamentExPanel from '@/components/expansionPanel/DepartamentExPanel.vue'
-import axios from 'axios'
-import { onMounted, ref } from 'vue'
-import { useStore } from 'vuex'
 
-// getting store
-const store = useStore()
+export default {
+  name: 'DepartamentList',
+  components: {
+    CreateDepartamentPopUp,
+    DepartamentExPanel
+  },
+  data() {
+    return {
+      loaded: false,
+      loading: false,
+    }
+  },
+  methods: {
+    onClick() {
+      loading.value = true
 
-// DATA
-let loaded = ref(false)
-let loading = ref(false)
-
-// METHODS
-const onClick = () => {
-  loading.value = true
-
-  setTimeout(() => {
-    loading.value = false
-    loaded.value = true
-  }, 2000)
+      setTimeout(() => {
+        loading.value = false
+        loaded.value = true
+      }, 2000)
+    }
+  },
+  computed: {
+    departaments() {
+      return this.$store.state.departament.departaments
+    }
+  },
+  mounted() {
+    this.$store.dispatch('getDepartament')
+  }
 }
-
-// COMPUTED
-const departaments = computed(() => {
-  return store.state.departament.departaments
-})
-
-// LIFECYCLE
-onMounted(() => {
-
-  // store.dispatch('getDepartament', { page: 1 }).then(() => {
-  //   console.log("-->>", departaments.value);
-  // })
-  // store.dispatch('getDepWithEmployees')
-
-  
-  
-  // axios
-  //   .get('http://t1.zarmeduniver.com:8005/xodim/xodimlar', {
-  //     params: {
-  //       skip: 1,
-  //     }
-  //   })
-  //   .then(res => {
-  //     console.log(res)
-  //   })
-  //   .catch(err => {
-  //     console.log('ERROR ----> ' + err)
-  //   })
-
-  // store.dispatch('getEmployee', { page: 1, itemsPerPage: 10 })
-})
-
 </script>
 
 <template>
@@ -84,7 +63,7 @@ onMounted(() => {
   </v-row>
 
   <div>
-    <DepartamentExPanel />
+    <DepartamentExPanel v-if="departaments" :departaments="departaments"  />
   </div>
 
   

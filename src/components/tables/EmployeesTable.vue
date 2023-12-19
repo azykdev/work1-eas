@@ -7,6 +7,7 @@
     :loading="$store.state.employee.loading"
     class="elevation-1 pb-2"
     @update:options="loadItems"
+    style=" min-width: 1000px;"
   >
     <!-- full name -->
     <template v-slot:item.fullName="{ item }">

@@ -10,18 +10,17 @@ const store = useStore()
 // DATA -------------------------------------------------
 const attachData = ref({
   xodim_id: null,
-  bulim_id: props.departament.id,
+  bulim_id: props.departamentWithEmpByDepId.id,
   lavozim: '',
   stavka: 0
 })
 
 // PROPS --------------------------------------------------
 const props = defineProps({
-  departament: Object,
-  getItemFunc: Function
+  departamentWithEmpByDepId: Object,
 })
 
-console.log(props.departament);
+console.log(props.departamentWithEmpByDepId);
 
 // METHODS ---------------------------------------------------
 // submit
@@ -30,10 +29,10 @@ const submitDepartamentForm = async () => {
 
   if (result) {
 
-    store.dispatch('postEmpDep', attachData.value).then((res) => {
+    store.dispatch('postDepartamentWithEmp', attachData.value).then((res) => {
       console.log(res);
-      store.dispatch('getDepWithEmployees')
-    }).finally(() => {
+      store.dispatch('getDepartamentWithEmpByDepId', props.departamentWithEmpByDepId.id)
+    }).finally(() => {  
       attachData.value = {
         xodim_id: null,
         bulim_id: null,
@@ -43,7 +42,6 @@ const submitDepartamentForm = async () => {
 
       store.commit('attachDepEmpPopupClose')
 
-      props.getItemFunc(props.departament.id)
     })
   } else {
     alert('Validation failed!')
@@ -51,8 +49,8 @@ const submitDepartamentForm = async () => {
 }
 
 // COMPUTED --------------------------------------------------
-const empSelectItems = computed(() => {
-  return store.state.employee.empSelectItems
+const employees = computed(() => {
+  return store.state.employee.employees
 })
 
 const rules = computed(() => {
@@ -69,7 +67,7 @@ const v$ = useVuelidate(rules, attachData)
   <VForm @submit.prevent="submitDepartamentForm">
     <div class="mb-3">
       <VSelect
-        item-title="fullName"
+        item-title="fullName.name"
         item-value="id"
         label="Xodimni tanlang"
         variant="outlined"
@@ -77,7 +75,7 @@ const v$ = useVuelidate(rules, attachData)
         clearable
         prepend-inner-icon="mdi-account"
         v-model="attachData.xodim_id"
-        :items="empSelectItems"
+        :items="employees"
         :error-messages="v$.xodim_id.$errors.map(e => e.$message)"
       />
     </div>

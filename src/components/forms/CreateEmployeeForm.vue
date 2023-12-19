@@ -27,8 +27,7 @@ const employee = ref({
 // Maska
 const MaskOption = ref({
   phoneMaskOption: {
-    mask: '+998#########',
-    eager: true,
+    mask: '+998 (##) ###-##-##',
   },
   jshirMaskOption: {
     mask: '##############',
@@ -56,6 +55,7 @@ const changeAvatar = file => {
 }
 // Submit form
 const submitEmployeeForm = async () => {
+  employee.value.telefon = employee.value.telefon.replace(/([()\s-])/g, '')
   const result = await v$.value.$validate()
 
   if (result) {
@@ -120,226 +120,244 @@ onMounted(() => {}),
 <template>
   <VForm @submit.prevent="submitEmployeeForm">
     <VRow>
-      <!-- 👉 Avatar -->
       <VCol
         cols="12"
-        class="d-flex"
+        md="6"
       >
-        <!-- 👉 Avatar img-->
-        <VAvatar
-          rounded="lg"
-          size="100"
-          class="me-6"
-          :image="employee.image"
-        ></VAvatar>
-        <!-- 👉 Upload avatar img -->
-        <div>
-          <v-tooltip text="Rasm tanlash">
-            <template v-slot:activator="{ props }">
-              <VBtn
-                v-bind="props"
-                color="primary"
-                @click="refImgInput?.click()"
-              >
-                <VIcon
-                  icon="mdi-cloud-upload-outline"
-                  class="d-sm-none"
-                />
-                <span class="d-none d-sm-block">Rasm tanlash</span>
-              </VBtn>
-            </template>
-          </v-tooltip>
-
-          <input
-            ref="refImgInput"
-            type="file"
-            name="file"
-            accept=".jpeg,.png,.jpg,GIF"
-            hidden
-            @input="changeAvatar"
-          />
-          <p class="text-caption my-2">Allowed JPG, GIF or PNG. Max size of 800K</p>
-        </div>
-      </VCol>
-
-      <!-- 👉 First Name -->
-      <VCol cols="12">
-        <VTextField
-          label="Ism"
-          variant="outlined"
-          density="comfortable"
-          clearable
-          prepend-inner-icon="mdi-account"
-          v-model="employee.ism"
-          :error-messages="v$.ism.$errors.map(e => e.$message)"
-        />
-      </VCol>
-
-      <!-- 👉 Last Name -->
-      <VCol cols="12">
-        <VTextField
-          label="Familya"
-          variant="outlined"
-          density="comfortable"
-          clearable
-          prepend-inner-icon="mdi-account"
-          v-model="employee.familiya"
-          :error-messages="v$.familiya.$errors.map(e => e.$message)"
-        />
-      </VCol>
-
-      <!-- 👉 Other Name -->
-      <VCol cols="12">
-        <VTextField
-          label="Sharif"
-          variant="outlined"
-          density="comfortable"
-          clearable
-          prepend-inner-icon="mdi-account"
-          v-model="employee.sharif"
-          :error-messages="v$.sharif.$errors.map(e => e.$message)"
-        />
-      </VCol>
-
-      <VCol cols="12">
-        <p class="text-caption font-weight-bold">Passport ma'lumotlari</p>
-
         <VRow>
-          <!-- 👉 JSHIR -->
+          <!-- 👉 Avatar -->
+          <VCol
+            cols="12"
+            class="d-flex"
+          >
+            <!-- 👉 Avatar img-->
+            <VAvatar
+              rounded="lg"
+              size="100"
+              class="me-6"
+              :image="employee.image"
+            ></VAvatar>
+            <!-- 👉 Upload avatar img -->
+            <div>
+              <v-tooltip text="Rasm tanlash">
+                <template v-slot:activator="{ props }">
+                  <VBtn
+                    v-bind="props"
+                    color="primary"
+                    @click="refImgInput?.click()"
+                  >
+                    <VIcon
+                      icon="mdi-cloud-upload-outline"
+                      class="d-sm-none"
+                    />
+                    <span class="d-none d-sm-block">Rasm tanlash</span>
+                  </VBtn>
+                </template>
+              </v-tooltip>
+
+              <input
+                ref="refImgInput"
+                type="file"
+                name="file"
+                accept=".jpeg,.png,.jpg,GIF"
+                hidden
+                @input="changeAvatar"
+              />
+              <p class="text-caption my-2">Allowed JPG, GIF or PNG. Max size of 800K</p>
+            </div>
+          </VCol>
+
+          <!-- 👉 First Name -->
           <VCol cols="12">
             <VTextField
-              label="Jshir"
+              label="Ism"
               variant="outlined"
               density="comfortable"
               clearable
-              prepend-inner-icon="mdi-passport-biometric"
-              placeholder="Passport jshir raqam"
-              v-model="employee.jshir"
-              :error-messages="v$.jshir.$errors.map(e => e.$message)"
-              v-maska:[MaskOption.jshirMaskOption]
+              prepend-inner-icon="mdi-account"
+              v-model="employee.ism"
+              :error-messages="v$.ism.$errors.map(e => e.$message)"
             />
           </VCol>
 
-          <!-- 👉 Passport seria -->
-          <VCol
-            cols="5"
-            sm="4"
-          >
+          <!-- 👉 Last Name -->
+          <VCol cols="12">
             <VTextField
-              label="Seria"
+              label="Familya"
               variant="outlined"
               density="comfortable"
               clearable
-              prepend-inner-icon="mdi-passport-biometric"
-              placeholder="AA"
-              v-model="employee.ps_seriya"
-              :error-messages="v$.ps_seriya.$errors.map(e => e.$message)"
-              v-maska:[MaskOption.seriaOption]
+              prepend-inner-icon="mdi-account"
+              v-model="employee.familiya"
+              :error-messages="v$.familiya.$errors.map(e => e.$message)"
             />
           </VCol>
 
-          <!-- 👉 Passport seria raqam -->
-          <VCol
-            cols="7"
-            sm="8"
-          >
+          <!-- 👉 Other Name -->
+          <VCol cols="12">
             <VTextField
-              label="Seria raqam"
+              label="Sharif"
               variant="outlined"
               density="comfortable"
               clearable
-              prepend-inner-icon="mdi-passport-biometric"
-              placeholder="1234567"
-              v-model="employee.ps_raqam"
-              :error-messages="v$.ps_raqam.$errors.map(e => e.$message)"
-              v-maska:[MaskOption.seriaRaqamOption]
+              prepend-inner-icon="mdi-account"
+              v-model="employee.sharif"
+              :error-messages="v$.sharif.$errors.map(e => e.$message)"
             />
           </VCol>
         </VRow>
       </VCol>
-
-      <VCol>
-        <p class="text-caption font-weight-bold">Qo'shimcha ma'lumotlar</p>
-
-        <VRow>
-          <!-- 👉 Tug'ilgan sana -->
-          <VCol
-            cols="12"
-            sm="6"
-          >
-            <VTextField
-              label="Tug'ilgan sana"
-              variant="outlined"
-              density="comfortable"
-              clearable
-              prepend-inner-icon="mdi-calendar"
-              placeholder="Tug'ilgan sana"
-              type="date"
-              v-model="employee.tug_sana"
-              :error-messages="v$.tug_sana.$errors.map(e => e.$message)"
-            />
-          </VCol>
-
-          <!-- 👉 Phone -->
-          <VCol
-            cols="12"
-            sm="6"
-          >
-            <VTextField
-              maxlength="13"
-              label="Telefon raqam"
-              variant="outlined"
-              density="comfortable"
-              clearable
-              prepend-inner-icon="mdi-phone"
-              placeholder="+998 ("
-              v-model="employee.telefon"
-              :error-messages="v$.telefon.$errors.map(e => e.$message)"
-              v-maska:[MaskOption.phoneMaskOption]
-            />
-          </VCol>
-        </VRow>
-      </VCol>
-
-      <VCol cols="12">
-        <v-radio-group
-          inline
-          v-model="employee.gender"
-          :error-messages="v$.gender.$errors.map(e => e.$message)"
-        >
-          <v-radio
-            label="Erkak"
-            :value="1"
-          ></v-radio>
-          <v-radio
-            label="Ayol"
-            :value="2"
-          ></v-radio>
-        </v-radio-group>
-      </VCol>
-
       <VCol
         cols="12"
-        class="d-flex gap-4"
+        md="6"
       >
-        <VBtn
-          type="submit"
-          color="success"
-          size="small"
-        >
-          Yuborish
-        </VBtn>
+        <VRow>
+          <VCol cols="12">
+            <p class="text-caption font-weight-bold">Passport ma'lumotlari</p>
 
-        <VBtn
-          color="secondary"
-          type="reset"
-          variant="tonal"
-          size="small"
-        >
-          Tozalash
-        </VBtn>
+            <VRow>
+              <!-- 👉 JSHIR -->
+              <VCol cols="12">
+                <VTextField
+                  label="Jshir"
+                  variant="outlined"
+                  density="comfortable"
+                  clearable
+                  prepend-inner-icon="mdi-passport-biometric"
+                  placeholder="Passport jshir raqam"
+                  v-model="employee.jshir"
+                  :error-messages="v$.jshir.$errors.map(e => e.$message)"
+                  v-maska:[MaskOption.jshirMaskOption]
+                  maxLength="14"
+                />
+              </VCol>
+
+              <!-- 👉 Passport seria -->
+              <VCol
+                cols="5"
+                sm="4"
+              >
+                <VTextField
+                  label="Seria"
+                  variant="outlined"
+                  density="comfortable"
+                  clearable
+                  prepend-inner-icon="mdi-passport-biometric"
+                  placeholder="AA"
+                  v-model="employee.ps_seriya"
+                  :error-messages="v$.ps_seriya.$errors.map(e => e.$message)"
+                  v-maska:[MaskOption.seriaOption]
+                  maxLength="2"
+                />
+              </VCol>
+
+              <!-- 👉 Passport seria raqam -->
+              <VCol
+                cols="7"
+                sm="8"
+              >
+                <VTextField
+                  label="Seria raqam"
+                  variant="outlined"
+                  density="comfortable"
+                  clearable
+                  prepend-inner-icon="mdi-passport-biometric"
+                  placeholder="1234567"
+                  v-model="employee.ps_raqam"
+                  :error-messages="v$.ps_raqam.$errors.map(e => e.$message)"
+                  v-maska:[MaskOption.seriaRaqamOption]
+                  maxLength="7"
+                />
+              </VCol>
+            </VRow>
+          </VCol>
+
+          <VCol>
+            <p class="text-caption font-weight-bold">Qo'shimcha ma'lumotlar</p>
+
+            <VRow>
+              <!-- 👉 Tug'ilgan sana -->
+              <VCol
+                cols="12"
+                sm="6"
+              >
+                <VTextField
+                  label="Tug'ilgan sana"
+                  variant="outlined"
+                  density="comfortable"
+                  clearable
+                  prepend-inner-icon="mdi-calendar"
+                  placeholder="Tug'ilgan sana"
+                  type="date"
+                  v-model="employee.tug_sana"
+                  :error-messages="v$.tug_sana.$errors.map(e => e.$message)"
+                />
+              </VCol>
+
+              <!-- 👉 Phone -->
+              <VCol
+                cols="12"
+                sm="6"
+              >
+                <VTextField
+                  maxlength="19"
+                  label="Telefon raqam"
+                  variant="outlined"
+                  density="comfortable"
+                  clearable
+                  prepend-inner-icon="mdi-phone"
+                  placeholder="+998 ("
+                  v-model="employee.telefon"
+                  :error-messages="v$.telefon.$errors.map(e => e.$message)"
+                  v-maska:[MaskOption.phoneMaskOption]
+                />
+              </VCol>
+            </VRow>
+          </VCol>
+
+          <VCol cols="12">
+            <v-radio-group
+              inline
+              v-model="employee.gender"
+              :error-messages="v$.gender.$errors.map(e => e.$message)"
+            >
+              <v-radio
+                label="Erkak"
+                :value="1"
+              ></v-radio>
+              <v-radio
+                label="Ayol"
+                :value="2"
+              ></v-radio>
+            </v-radio-group>
+          </VCol>
+
+          <VCol
+            cols="12"
+            class="d-flex gap-4"
+          >
+            <VSpacer />
+            <VBtn
+              type="submit"
+              color="success"
+              size="small"
+            >
+              Yuborish
+            </VBtn>
+
+            <VBtn
+              color="secondary"
+              type="reset"
+              variant="tonal"
+              size="small"
+            >
+              Tozalash
+            </VBtn>
+          </VCol>
+        </VRow>
       </VCol>
     </VRow>
+
     <div>
       <p
         v-for="error in v$.$errors"

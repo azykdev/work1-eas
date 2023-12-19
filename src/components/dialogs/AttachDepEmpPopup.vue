@@ -4,14 +4,14 @@
     prepend-icon="mdi-attachment"
       color="success"
       variant="outlined"
-      
+      persistent
       @click="this.$store.commit('attachDepEmpPopupOpen')"
     >
     Xodim Biriktirish
       <v-dialog
         v-model="attachDepEmpPopup"
         max-width="600"
-        persistent
+        scrollable
       >
         <v-card>
           <v-card-title class="d-flex justify-space-between">
@@ -29,7 +29,8 @@
           </v-card-title>
 
           <v-card-text>
-            <AttachDepEmpForm :departament="departament" :getItemFunc="getItemFunc" />
+            <AttachDepEmpForm :departamentWithEmpByDepId="departamentWithEmpByDepId" />
+            
           </v-card-text>
         </v-card>
       </v-dialog>
@@ -51,7 +52,7 @@
     },
     computed: {
       attachDepEmpPopup() {
-        return this.$store.state.departament.attachDepEmpPopup
+        return this.$store.state.departamentWithEmp.attachDepEmpPopup
       }
     },
     methods: {
@@ -62,14 +63,10 @@
       })
     },
     props: {
-      departament: {
+      departamentWithEmpByDepId: {
         type: Object,
         required: true
       },
-      getItemFunc: {
-        type: Function,
-        required: true
-      }
     }
   }
 </script>

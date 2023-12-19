@@ -8,8 +8,6 @@ const state = {
   editItemData: null, // Edit Data
   createEmpPopup: false, // Popup
 
-  // Attach Departament and Employee
-  empSelectItems: [],
 }
 
 const mutations = {
@@ -71,14 +69,13 @@ const mutations = {
 const actions = {
   // Get employee
   getEmployee(context, payload) {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
 
       context.commit('getEmployeeStart');
 
       EmployeeService.getEmployee(payload).then(res => {
 
         const newServerItems = [];
-        state.empSelectItems = []
 
         res.data.forEach((item, i) => {
           const newItem = {
@@ -103,13 +100,6 @@ const actions = {
           }
 
           newServerItems.push(newItem)
-
-          
-
-          state.empSelectItems.push({
-            id: item.id,
-            fullName: item.ism + " " + item.familiya + " " + item.sharif
-          })
         })
 
         state.employees = JSON.parse(JSON.stringify(newServerItems));
@@ -118,10 +108,6 @@ const actions = {
 
         resolve(res)
 
-      }).catch(err => {
-        context.commit('getEmployeeError');
-
-        reject(err)
       })
     })
   },

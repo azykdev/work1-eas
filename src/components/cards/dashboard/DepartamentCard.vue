@@ -16,7 +16,7 @@ const allDepartamentCount = ref(null)
 
 // Methods
 function getDepartamentData() {
-  store.dispatch("getDepartament", {page: 1, itemsPerPage: 10}).then(res => {
+  store.dispatch("getDepartament").then(res => {
     allDepartamentCount.value = res.headers['x-total-count']
   })
 }

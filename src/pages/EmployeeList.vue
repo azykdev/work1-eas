@@ -50,7 +50,7 @@ watch(searchText, () => {
           v-model="searchText"
           append-inner-icon="mdi-magnify"
           :loading="loading"
-          variant="solo-filled"
+          variant="solo"
           label="Search..."
           hide-details
           @click:append-inner="onClick"
@@ -60,7 +60,9 @@ watch(searchText, () => {
     </v-col>
   </v-row>
 
-  <EmployeesTable />
+  <div class="overflow-x-auto">
+    <EmployeesTable />
+  </div>
 
   
 </template>
