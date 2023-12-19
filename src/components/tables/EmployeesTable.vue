@@ -7,7 +7,7 @@
     :loading="$store.state.employee.loading"
     class="elevation-1 pb-2"
     @update:options="loadItems"
-    style=" min-width: 1000px;"
+    style="min-width: 1000px"
   >
     <!-- full name -->
     <template v-slot:item.fullName="{ item }">
@@ -55,8 +55,11 @@
       </v-icon>
     </template>
 
-    <template v-slot:no-data>
+    <template v-slot:item.menu="{ item }">
+      <EmpActionsMenu :employee="item" />
+    </template>
 
+    <template v-slot:no-data>
       <p class="text-center my-5">Ma'lumot topilmadi !</p>
 
       <!-- <v-btn
@@ -70,24 +73,30 @@
 </template>
 
 <script>
+import EmpActionsMenu from '../menu/EmpActionsMenu.vue'
 export default {
+  name: 'EmployeesTable',
   data: () => ({
     headers: [
       { key: 'num', title: '№', align: 'start', sortable: false },
-      { key: 'fullName', title: 'F.I.O', align: 'center', sortable: false  },
-      { key: 'passport', title: 'Passport seria', align: 'center', sortable: false },
-      { key: 'phone', title: 'Telefon', align: 'center', sortable: false },
-      { key: 'isActive', title: '', align: 'center', sortable: false },
-      { key: 'actions', title: '', align: 'center', sortable: false },
+      { key: 'fullName', title: 'F.I.O', align: 'start', sortable: false },
+      { key: 'passport', title: 'Passport seria', align: 'start', sortable: false },
+      { key: 'phone', title: 'Telefon', align: 'start', sortable: false },
+      { key: 'isActive', title: '', align: 'start', sortable: false },
+      { key: 'actions', title: '', align: 'start', sortable: false },
+      { key: 'menu', title: '', align: 'start', sortable: false },
     ],
     itemsPerPage: 10,
   }),
-
+  components: {
+    EmpActionsMenu,
+  },
   methods: {
     loadItems({ page, itemsPerPage }) {
       this.$store.dispatch('getEmployee', { page, itemsPerPage })
     },
     deleteItem(item) {
+      console.log(item);
       if (confirm("O'chirishni xohlaysizmi?")) {
         this.$store.dispatch('deleteEmployee', item.value).then(() => {
           this.$store.dispatch('getEmployee', { page: 1, itemsPerPage: 10 })
@@ -107,14 +116,14 @@ export default {
         sharif: item.raw.oName,
         gender: item.raw.gender,
         telefon: item.raw.phone,
-        active: item.raw.isActive, 
+        active: item.raw.isActive,
         jshir: item.raw.jshir,
         ps_seriya: item.raw.seria,
         ps_raqam: item.raw.seriaRaqam,
         tug_sana: item.raw.birthday,
       }
 
-      this.$store.dispatch('putEmployee', newEmployee).then((res) => {
+      this.$store.dispatch('putEmployee', newEmployee).then(res => {
         console.log(res)
         this.$store.dispatch('getEmployee', { page: 1, itemsPerPage: 10 })
       })

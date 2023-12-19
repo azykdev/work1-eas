@@ -22,6 +22,11 @@ const router = createRouter({
           path: 'bolimlar_royxati',
           name: 'bolimlar_royxati',
           component: () => import('../pages/DepartamentList.vue'),
+        },
+        {
+          path: 'case_manager_list',
+          name: 'case_manager_list',
+          component: () => import('../pages/CaseManagerList.vue'),
         }
       ],
     },

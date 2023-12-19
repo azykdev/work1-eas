@@ -74,7 +74,7 @@ const vuetifyTheme = useTheme();
       <!-- 👉 - Employees navlink -->
       <VerticalNavLink
         :item="{
-          title: 'Xodimlar ro\'yxati',
+          title: 'Xodimlar',
           icon: 'mdi-account-multiple',
           to: '/xodimlar_royxati',
         }"
@@ -83,9 +83,18 @@ const vuetifyTheme = useTheme();
       <!-- 👉 - Departaments navlink -->
       <VerticalNavLink
         :item="{
-          title: 'Bo\'limlar ro\'yxati',
+          title: 'Bo\'limlar ',
           icon: 'mdi-sitemap',
           to: '/bolimlar_royxati',
+        }"
+      />
+
+      <!-- 👉 - Case Manager navlink -->
+      <VerticalNavLink
+        :item="{
+          title: 'Ish boshqaruvchilari  ',
+          icon: 'mdi-account-star',
+          to: '/case_manager_list',
         }"
       />
 
