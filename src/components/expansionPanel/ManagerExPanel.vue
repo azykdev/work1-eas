@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Case Manager</h1>
+    <h1>ManagerList</h1>
   </div>
 </template>
 

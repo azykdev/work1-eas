@@ -24,9 +24,9 @@ const router = createRouter({
           component: () => import('../pages/DepartamentList.vue'),
         },
         {
-          path: 'case_manager_list',
-          name: 'case_manager_list',
-          component: () => import('../pages/CaseManagerList.vue'),
+          path: 'manager_list',
+          name: 'manager_list',
+          component: () => import('../pages/ManagerList.vue'),
         }
       ],
     },

@@ -94,7 +94,7 @@ const vuetifyTheme = useTheme();
         :item="{
           title: 'Ish boshqaruvchilari  ',
           icon: 'mdi-account-star',
-          to: '/case_manager_list',
+          to: '/manager_list',
         }"
       />
 

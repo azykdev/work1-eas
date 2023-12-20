@@ -67,40 +67,12 @@
             <!-- <v-divider></v-divider> -->
 
             <v-card-text class="ma-0 pa-0 overflow-auto">
-              <!-- <v-list lines="three">
-                <v-list-item
-                  class="rounded"
-                  v-for="xodim in depWithEmployee.xodimlar"
-                  :key="xodim.id"
-                  :value="xodim.id"
-                  prepend-avatar="https://randomuser.me/api/portraits/women/8.jpg"
-                >
-                  <v-list-item-title
-                    class="mb-1"
-                    style="font-size: 17px"
-                    
-                    >{{ xodim.xodim.familiya }} {{ xodim.xodim.ism }} {{ xodim.xodim.sharif }}</v-list-item-title
-                  >
-                  <v-list-item-subtitle>
-                    <div class="me-5 me-md-10 mb-1">
-                       <i class="text-primary">{{ xodim.lavozim }}</i>
-                    </div>
-                    <div class="d-flex flex-wrap">
-                      <div class="me-5 me-md-10">
-                         <i>{{ xodim.xodim.telefon }}</i>
-                      </div>
-                      <div class="me-5 me-md-10">
-                         <i>{{ xodim.xodim.ps_seriya }} {{ xodim.xodim.ps_raqam }}</i>
-                      </div>
-                    </div>
-                  </v-list-item-subtitle>
-                </v-list-item>
-              </v-list> -->
 
               <DepAllEmployeesTable
                 v-if="departamentWithEmpByDepId.xodimlar.length > 0"
                 :allEmployees="departamentWithEmpByDepId.xodimlar"
               />
+              
             </v-card-text>
             <v-card-actions> </v-card-actions>
           </v-card>
