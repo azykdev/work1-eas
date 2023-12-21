@@ -18,9 +18,6 @@ const mutations = {
     state.loading = false
     state.departaments = data
   },
-  getDepartamentError(state) {
-    state.loading = false
-  },
 
   // POST departament
   postDepartamentStart(state) {
@@ -76,7 +73,7 @@ const mutations = {
 const actions = {
   // GET departament
   getDepartament(context) {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
 
       context.commit("getDepartamentStart") 
 
@@ -84,23 +81,11 @@ const actions = {
 
         console.log(res);
 
-        // state.departaments = []
-        // Bo'limlarga tartib raqam berish
-        // res.data.forEach((item, i) => {
-        //   item.num = i + 1
-        //   state.departaments.push(item)
-        // });
-
-        // state.departaments = JSON.parse(JSON.stringify(res.data));
         state.totalItems = res.headers["x-total-count"]
 
         context.commit("getDepartamentSuccess", res.data) 
 
         resolve(res)
-      }).catch(err => {
-        context.commit("getDepartamentError")  
-
-        reject(err)
       })
     })
   },

@@ -1,12 +1,72 @@
 <template>
   <div>
-    <h1>ManagerList</h1>
+    <v-expansion-panels>
+      <v-expansion-panel v-for="(manager, i) in managers" :key="manager.id">
+        <v-expansion-panel-title class="bg-grey-100 py-7">{{ manager.familiya }} {{ manager.ism }} {{ manager.sharif }}</v-expansion-panel-title>
+        <v-expansion-panel-text class="mt-5">
+          <!-- Manager Card -->
+          <v-card variant="flat">
+            <v-card-item>
+              <v-card-title>
+                <div class="d-flex justify-space-between flex-wrap">
+                  <div class="me-5">
+                    Ish boshqaruvchi nomi: <span class="text-primary">{{ manager.familiya }} {{ manager.ism }} {{ manager.sharif }}</span>
+                  </div>
+
+                  <!-- Additional information -->
+                  <div
+                    id="departament-attach"
+                    class="pb-1"
+                  >
+                    <div>
+                      Bo'limlar: <span class="text-primary">10</span> ta
+                    </div>
+                  </div>
+
+                  <!-- Manager Actions -->
+                  <div
+                    class="pb-1 d-flex align-center"
+                  >
+                    <!-- <AttachDepEmpPopup
+                      class="me-2"
+                      :departamentWithEmpByDepId="departamentWithEmpByDepId"
+                    /> -->
+                    <v-icon
+                      size="small"
+                      class="mx-3"
+                      color="warning"
+                    >
+                      mdi-pencil
+                    </v-icon>
+                    <v-icon
+                      size="small"
+                      class="mx-3"
+                      color="error"
+                    >
+                      mdi-delete
+                    </v-icon>
+                  </div>
+                </div>
+              </v-card-title>
+            </v-card-item>
+            <v-card-text class="ma-0 pa-0 overflow-auto">
+
+            </v-card-text>
+          </v-card>
+        </v-expansion-panel-text>
+      </v-expansion-panel>
+    </v-expansion-panels>
   </div>
 </template>
 
 <script>
   export default {
-    
+    name: 'ManagerExPanel',
+    props: {
+      managers: {
+        type: Array,
+      }
+    }
   }
 </script>
 

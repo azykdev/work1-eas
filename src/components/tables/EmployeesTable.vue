@@ -38,14 +38,7 @@
     </template>
 
     <template v-slot:item.actions="{ item }">
-      <v-icon
-        size="small"
-        class="me-2"
-        @click="editItem(item)"
-        color="warning"
-      >
-        mdi-pencil
-      </v-icon>
+      
       <v-icon
         size="small"
         @click="deleteItem(item)"
@@ -102,9 +95,6 @@ export default {
           this.$store.dispatch('getEmployee', { page: 1, itemsPerPage: 10 })
         })
       }
-    },
-    editItem(item) {
-      this.$store.dispatch('getEmpEditData', item.value)
     },
     changeIsActive(item) {
       console.log(item.raw)

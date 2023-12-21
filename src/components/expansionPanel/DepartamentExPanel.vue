@@ -2,7 +2,7 @@
   <div >
     <v-expansion-panels >
       <v-expansion-panel
-        v-for="(item, index) in departaments"
+        v-for="(item) in departaments"
         :key="item.id"
       >
         <v-expansion-panel-title
@@ -64,8 +64,6 @@
               </v-card-title>
             </v-card-item>
 
-            <!-- <v-divider></v-divider> -->
-
             <v-card-text class="ma-0 pa-0 overflow-auto">
 
               <DepAllEmployeesTable
@@ -74,7 +72,6 @@
               />
               
             </v-card-text>
-            <v-card-actions> </v-card-actions>
           </v-card>
         </v-expansion-panel-text>
       </v-expansion-panel>
@@ -111,7 +108,6 @@ export default {
         this.$store.dispatch('deleteDepartament', item.id).then(() => {
           this.$store.dispatch('getDepartament', { page: 1, itemsPerPage: 10 })
         })
-        
       }
     }
   },
@@ -119,9 +115,6 @@ export default {
     departamentWithEmpByDepId() {
       return this.$store.state.departamentWithEmp.departamentWithEmpByDepId
     },
-  },
-  mounted() {
- 
   },
   components: { AttachDepEmpPopup, DepAllEmployeesTable },
 }

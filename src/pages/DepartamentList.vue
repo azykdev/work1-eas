@@ -17,11 +17,11 @@ export default {
   },
   methods: {
     onClick() {
-      loading.value = true
+      this.loading = true
 
       setTimeout(() => {
-        loading.value = false
-        loaded.value = true
+        this.loading = false
+        this.loaded = true
       }, 2000)
     }
   },

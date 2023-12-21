@@ -15,7 +15,7 @@
         </v-btn>
       </template>
 
-      <v-card min-width="400">
+      <v-card max-width="650">
         <v-list>
           <v-list-item
             :prepend-avatar="employee.raw.fullName.image"
@@ -26,7 +26,7 @@
                 variant="text"
                 icon="mdi-pencil"
                 color="grey-500"
-
+                @click="editItem"
               ></v-btn>
               <v-btn variant="text" icon="mdi-delete" color="error"></v-btn>
             </template>
@@ -42,15 +42,6 @@
               v-model="message"
               color="success"
               label="Xodim aktivligi"
-              hide-details
-            ></v-switch>
-          </v-list-item>
-
-          <v-list-item>
-            <v-switch
-              v-model="hints"
-              color="success"
-              label="Ish boshqaruvchi"
               hide-details
             ></v-switch>
           </v-list-item>
@@ -90,6 +81,18 @@
     props: {
       employee: {
         type: Object,
+      }
+    },
+    methods: {
+      changeIsActive(item) {
+        
+      },
+      deleteItem(item) {
+        
+      },
+      editItem() {
+        this.$store.dispatch('getEmpEditData', this.employee.value)
+        this.menu = false
       }
     }
   }

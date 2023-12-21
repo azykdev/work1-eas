@@ -25,7 +25,7 @@
   </v-row>
 
   <div>
-    <ManagerExPanel />
+    <ManagerExPanel v-if="managers" :managers="managers" />
   </div>
 </template>
 
@@ -54,6 +54,14 @@ export default {
     CreateManagerPopup,
     ManagerExPanel,
   },
+  computed: {
+    managers() {
+      return this.$store.state.manager.managers
+    }
+  },
+  mounted() {
+    this.$store.dispatch('getManagers')
+  }
 }
 </script>
 
