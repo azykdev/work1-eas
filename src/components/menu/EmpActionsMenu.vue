@@ -28,9 +28,13 @@
                 color="grey-500"
                 @click="editItem"
               ></v-btn>
-              <v-btn variant="text" icon="mdi-delete" color="error"></v-btn>
+              <v-btn
+                variant="text"
+                icon="mdi-delete"
+                color="error"
+                @click="deleteItem"
+              ></v-btn>
             </template>
-
           </v-list-item>
         </v-list>
 
@@ -39,10 +43,11 @@
         <v-list>
           <v-list-item>
             <v-switch
-              v-model="message"
+              v-model="employee.raw.isActive"
               color="success"
               label="Xodim aktivligi"
               hide-details
+              @change="changeIsActive"
             ></v-switch>
           </v-list-item>
         </v-list>
@@ -71,33 +76,56 @@
 </template>
 
 <script>
-  export default {
-    name: 'EmpActionsMenu',
-    data: () => ({
-      menu: false,
-      message: false,
-      hints: true,
-    }),
-    props: {
-      employee: {
-        type: Object,
-      }
+import employee from '@/modules/employee'
+
+export default {
+  name: 'EmpActionsMenu',
+  data: () => ({
+    menu: false,
+    // active: false,
+    hints: true,
+  }),
+  props: {
+    employee: {
+      type: Object,
     },
-    methods: {
-      changeIsActive(item) {
-        
-      },
-      deleteItem(item) {
-        
-      },
-      editItem() {
-        this.$store.dispatch('getEmpEditData', this.employee.value)
+  },
+  methods: {
+    deleteItem() {
+      if (confirm('Are you sure you want to delete this item?')) {
+        this.$store.dispatch('deleteEmployee', this.employee.value).then(() => {
+          this.$store.dispatch('getEmployee', { page: 1, itemsPerPage: 10 })
+        })
         this.menu = false
       }
-    }
-  }
+    },
+    editItem() {
+      this.$store.dispatch('getEmpEditData', this.employee.value)
+      this.menu = false
+    },
+    changeIsActive() {
+
+      const newEmployee = {
+        id: this.employee.raw.id,
+        familiya: this.employee.raw.lName,
+        ism: this.employee.raw.fName,
+        sharif: this.employee.raw.oName,
+        gender: this.employee.raw.gender,
+        telefon: this.employee.raw.phone,
+        active: this.employee.raw.isActive,
+        jshir: this.employee.raw.jshir,
+        ps_seriya: this.employee.raw.seria,
+        ps_raqam: this.employee.raw.seriaRaqam,
+        tug_sana: this.employee.raw.birthday,
+      }
+
+      this.$store.dispatch('putEmployee', newEmployee).then(res => {
+        console.log(res)
+        this.$store.dispatch('getEmployee', { page: 1, itemsPerPage: 10 })
+      })
+    },
+  },
+}
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>
