@@ -52,24 +52,7 @@
           </v-list-item>
         </v-list>
 
-        <v-card-actions>
-          <v-spacer></v-spacer>
-
-          <v-btn
-            variant="text"
-            @click="menu = false"
-            color="grey-500"
-          >
-            Bekor qilish
-          </v-btn>
-          <v-btn
-            color="primary"
-            variant="text"
-            @click="menu = false"
-          >
-            Saqlash
-          </v-btn>
-        </v-card-actions>
+        
       </v-card>
     </v-menu>
   </div>

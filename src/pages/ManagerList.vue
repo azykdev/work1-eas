@@ -61,6 +61,9 @@ export default {
   },
   mounted() {
     this.$store.dispatch('getManagers')
+    this.$store.dispatch('getEmployee').then((res) => {
+      console.log(res);
+    })
   }
 }
 </script>

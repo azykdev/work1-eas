@@ -5,9 +5,9 @@ const EmployeeService = {
   getEmployee(payload) {
     return axios.get("/xodim/xodimlar", {
       params: {
-        skip: payload.page,
-        limit: payload.itemsPerPage,
-        q: payload.q ? payload.q : ''
+        skip: payload?.page ,
+        limit: payload?.itemsPerPage,
+        q: payload?.q
       }
     })
   },

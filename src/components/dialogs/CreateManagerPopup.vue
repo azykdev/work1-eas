@@ -4,7 +4,7 @@
       prepend-icon="mdi-plus"
       color="success"
     >
-    Ish boshqaruvchi qo'shish
+      Ish boshqaruvchi qo'shish
       <v-dialog
         v-model="$store.state.manager.createManagerPopup"
         max-width="600"
@@ -27,7 +27,7 @@
           </v-card-title>
 
           <v-card-text>
-            <!-- <CreateDepartamentForm /> -->
+            <CreateManagerForm />
           </v-card-text>
         </v-card>
       </v-dialog>
@@ -36,11 +36,12 @@
 </template>
 
 <script>
-  export default {
-    
-  }
+import CreateManagerForm from '../forms/CreateManagerForm.vue'
+
+export default {
+  components: { CreateManagerForm },
+  
+}
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>
