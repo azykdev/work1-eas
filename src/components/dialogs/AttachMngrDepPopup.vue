@@ -5,11 +5,11 @@
       color="success"
       variant="outlined"
       persistent
-      @click="this.$store.commit('attachDepEmpPopupOpen')"
+      @click="this.$store.commit('attachMngrDepPopupOpen')"
     >
-    Xodim Biriktirish
+    Bo'lim biriktirish
       <v-dialog
-        v-model="AttachMngrDepPopup"
+        v-model="attachMngrDepPopup"
         max-width="600"
         scrollable
       >
@@ -22,7 +22,7 @@
               <v-btn
                 icon="mdi-close"
                 color="secondary"
-                @click="this.$store.commit('attachDepEmpPopupClose')"
+                @click="this.$store.commit('attachMngrDepPopupClose')"
               >
               </v-btn>
             </v-card-actions>
@@ -50,8 +50,8 @@
     //   AttachDepEmpForm
     // },
     computed: {
-      AttachMngrDepPopup() {
-        // return this.$store.state.departamentWithEmp.attachDepEmpPopup
+      attachMngrDepPopup() {
+        return this.$store.state.managerWithDep.attachMngrDepPopup
       }
     },
     // methods: {

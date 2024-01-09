@@ -36,6 +36,7 @@ const mutations = {
     state.loading = false
   },
 
+  // Popup
   attachDepEmpPopupOpen(state) {
     state.attachDepEmpPopup = true
   },

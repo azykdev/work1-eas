@@ -32,6 +32,7 @@
                       class="me-2"
                       :departamentWithEmpByDepId="departamentWithEmpByDepId"
                     /> -->
+                    <AttachMngrDepPopup class="me-2" />
                     <v-icon
                       size="small"
                       class="mx-3"
@@ -61,14 +62,17 @@
 </template>
 
 <script>
+import AttachMngrDepPopup from '../dialogs/AttachMngrDepPopup.vue';
+
   export default {
     name: 'ManagerExPanel',
     props: {
-      managers: {
-        type: Array,
-      }
-    }
-  }
+        managers: {
+            type: Array,
+        }
+    },
+    components: { AttachMngrDepPopup }
+}
 </script>
 
 <style scoped>
