@@ -23,7 +23,8 @@
           >
             <template v-slot:append>
               <v-btn
-                variant="text"
+              class="ms-2"
+                variant="tonal"
                 icon="mdi-pencil"
                 color="grey-500"
                 @click="editItem"
@@ -38,21 +39,6 @@
           </v-list-item>
         </v-list>
 
-        <v-divider></v-divider>
-
-        <v-list>
-          <v-list-item>
-            <v-switch
-              v-model="employee.raw.isActive"
-              color="success"
-              label="Xodim aktivligi"
-              hide-details
-              @change="changeIsActive"
-            ></v-switch>
-          </v-list-item>
-        </v-list>
-
-        
       </v-card>
     </v-menu>
   </div>
@@ -86,27 +72,7 @@ export default {
       this.$store.dispatch('getEmpEditData', this.employee.value)
       this.menu = false
     },
-    changeIsActive() {
-
-      const newEmployee = {
-        id: this.employee.raw.id,
-        familiya: this.employee.raw.lName,
-        ism: this.employee.raw.fName,
-        sharif: this.employee.raw.oName,
-        gender: this.employee.raw.gender,
-        telefon: this.employee.raw.phone,
-        active: this.employee.raw.isActive,
-        jshir: this.employee.raw.jshir,
-        ps_seriya: this.employee.raw.seria,
-        ps_raqam: this.employee.raw.seriaRaqam,
-        tug_sana: this.employee.raw.birthday,
-      }
-
-      this.$store.dispatch('putEmployee', newEmployee).then(res => {
-        console.log(res)
-        this.$store.dispatch('getEmployee', { page: 1, itemsPerPage: 10 })
-      })
-    },
+    
   },
 }
 </script>

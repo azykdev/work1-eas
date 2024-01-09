@@ -9,17 +9,18 @@
             <v-card-item>
               <v-card-title>
                 <div class="d-flex justify-space-between flex-wrap">
-                  <div class="me-5">
-                    Ish boshqaruvchi nomi: <span class="text-primary">{{ manager.familiya }} {{ manager.ism }} {{ manager.sharif }}</span>
+                  <div class="me-3 d-flex align-center flex-wrap" >
+                    <h5 class="me-3 text-capitalize font-weight-light ">Ish boshqaruvchi nomi: </h5>
+                    <span class="text-primary">{{ manager.familiya }} {{ manager.ism }} {{ manager.sharif }}</span>
                   </div>
 
                   <!-- Additional information -->
                   <div
                     id="departament-attach"
-                    class="pb-1"
                   >
-                    <div>
-                      Bo'limlar: <span class="text-primary">10</span> ta
+                    <div class="d-flex align-center flex-wrap">
+                      <h5 class="me-3 text-capitalize font-weight-light"  >Bo'limlar:</h5>
+                      <span class="text-primary">10 ta</span> 
                     </div>
                   </div>
 

@@ -29,6 +29,14 @@
       </div>
     </template>
 
+    <template v-slot:item.isActive="{ item }">
+      <v-switch
+        color="success"
+        v-model="item.raw.isActive"
+        @change="changeIsActive(item)"
+      ></v-switch>
+    </template>
+
     <template v-slot:item.menu="{ item }">
       <EmpActionsMenu :employee="item" />
     </template>
@@ -56,6 +64,7 @@ export default {
       { key: 'fullName', title: 'F.I.O', align: 'start', sortable: false },
       { key: 'passport', title: 'Passport seria', align: 'start', sortable: false },
       { key: 'phone', title: 'Telefon', align: 'start', sortable: false },
+      { key: 'isActive', title: 'Faol', align: 'start', sortable: false },
       { key: 'menu', title: '', align: 'start', sortable: false },
     ],
     itemsPerPage: 10,
@@ -67,7 +76,25 @@ export default {
     loadItems({ page, itemsPerPage }) {
       this.$store.dispatch('getEmployee', { page, itemsPerPage })
     },
-    
+    changeIsActive(item) {
+      const newEmployee = {
+        id: item.raw.id,
+        familiya: item.raw.lName,
+        ism: item.raw.fName,
+        sharif: item.raw.oName,
+        gender: item.raw.gender,
+        telefon: item.raw.phone,
+        active: item.raw.isActive,
+        jshir: item.raw.jshir,
+        ps_seriya: item.raw.seria,
+        ps_raqam: item.raw.seriaRaqam,
+        tug_sana: item.raw.birthday,
+      }
+      this.$store.dispatch('putEmployee', newEmployee).then(res => {
+        console.log(res)
+        this.$store.dispatch('getEmployee', { page: 1, itemsPerPage: 10 })
+      })
+    },
   },
 }
 </script>

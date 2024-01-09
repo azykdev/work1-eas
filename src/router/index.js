@@ -30,21 +30,21 @@ const router = createRouter({
         }
       ],
     },
-
-    // {
-    //   path: '/',
-    //   component: () => import('../layouts/blank.vue'),
-    //   children: [
-    //     {
-    //       path: 'login',
-    //       component: () => import('../pages/login.vue'),
-    //     },
-    //     {
-    //       path: '/:pathMatch(.*)*',
-    //       component: () => import('../pages/[...all].vue'),
-    //     },
-    //   ],
-    // },
+    {
+      path: '/',
+      component: () => import('../layouts/blank.vue'),
+      children: [
+        {
+          name: 'login',
+          path: 'login',
+          component: () => import('../pages/login.vue'),
+        },  
+        {
+          path: '/:pathMatch(.*)*',
+          component: () => import('../pages/[...all].vue'),
+        },
+      ],
+    },
   ],
 })
 
