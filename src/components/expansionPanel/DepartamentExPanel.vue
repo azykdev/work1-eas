@@ -6,8 +6,9 @@
         :key="item.id"
       >
         <v-expansion-panel-title
+          color="grey-50" 
           @click="getItem(item.id)"
-          class="bg-grey-100 py-7"
+          class="py-7 text-white text-capitalize " 
           >{{ item.bulim_name }}</v-expansion-panel-title
         >
         <v-expansion-panel-text class="mt-5" v-if="departamentWithEmpByDepId" >

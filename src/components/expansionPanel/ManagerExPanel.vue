@@ -2,7 +2,7 @@
   <div>
     <v-expansion-panels>
       <v-expansion-panel v-for="(manager, i) in managers" :key="manager.id">
-        <v-expansion-panel-title class="bg-grey-100 py-7">{{ manager.familiya }} {{ manager.ism }} {{ manager.sharif }}</v-expansion-panel-title>
+        <v-expansion-panel-title color="grey-50" class=" py-7">{{ manager.familiya }} {{ manager.ism }} {{ manager.sharif }}</v-expansion-panel-title>
         <v-expansion-panel-text class="mt-5">
           <!-- Manager Card -->
           <v-card variant="flat">

@@ -30,6 +30,7 @@
 
           <v-card-text>
             <!-- <AttachDepEmpForm :departamentWithEmpByDepId="departamentWithEmpByDepId" /> -->
+            <AttachMngrDepForm />
           </v-card-text>
         </v-card>
       </v-dialog>
@@ -38,36 +39,23 @@
 </template>
 
 <script>
+import AttachMngrDepForm from '../forms/AttachMngrDepForm.vue';
+
   export default {
     name: 'AttachMngrDepPopup',
     data() {
-      return {
-        
-      }
+        return {};
     },
-    
     // components: {
     //   AttachDepEmpForm
     // },
     computed: {
-      attachMngrDepPopup() {
-        return this.$store.state.managerWithDep.attachMngrDepPopup
-      }
+        attachMngrDepPopup() {
+            return this.$store.state.managerWithDep.attachMngrDepPopup;
+        }
     },
-    // methods: {
-      
-    // },
-    // mounted() {
-    //   this.$store.dispatch('getEmployee', { page: 1 }).then((res) => {
-    //   })
-    // },
-    // props: {
-    //   departamentWithEmpByDepId: {
-    //     type: Object,
-    //     required: true
-    //   },
-    // }
-  }
+    components: { AttachMngrDepForm }
+}
 </script>
 
 <style scoped>
