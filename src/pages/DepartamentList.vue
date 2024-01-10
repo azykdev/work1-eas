@@ -53,7 +53,7 @@ export default {
         <v-text-field
           append-inner-icon="mdi-magnify"
           :loading="loading"
-          variant="solo-filled"
+          variant="solo"
           label="Search templates"
           hide-details
           @click:append-inner="onClick"
